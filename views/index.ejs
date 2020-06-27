@@ -1,0 +1,168 @@
+<% layout('layouts/boilerplate') -%>
+
+<section id="introduction">
+	<main class="main-custom">
+		<div class="gradient-custom-landing-page leading-normal tracking-normal mb-8 text-white">
+	 	
+		<div class="xl:pt-0 lg:pt-0 pt-8 xl:px-0 lg:px-0 px-4">
+			<div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+				<!--Left Col-->
+				<div class="xl:p-4 lg:p-4 md:p-4 p-0 flex flex-col w-full md:w-2/5 justify-center items-start text-left">
+					<p class="tracking-loose w-full xl:text-lg lg:text-lg text-sm">Siap untuk terkoneksi dengan para penjual ?</p>
+					<h1 class="xl:my-4 xl:text-5xl lg:my-4 lg:text-5xl md:my-4 md:text-5xl my-2 text-3xl font-bold leading-tight">Selamat Datang Di Waingapu Shop Zone</h1>
+					<p class="leading-normal xl:text-2xl lg:text-2xl text-sm mb-12">Koneksikan diri anda dengan para penjual yang ada di sekitar kota waingapu</p>
+							
+				</div>
+				<!--Right Col-->
+				<div class="w-full md:w-3/5 py-6 text-center lg:block md:block xl:block hidden">
+					<img class="w-full md:w-4/5 z-50" src="images/hero-landing-page.png">
+				</div>
+				
+			</div>
+
+		</div>
+
+		<div class="relative -mt-12 lg:-mt-24">
+			<svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+			<g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+			<path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+			<path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z" opacity="0.100000001"></path>
+			<path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" id="Path-4" opacity="0.200000003"></path>
+			</g>
+			<g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+			<path d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"></path>
+			</g>
+			</g>
+			</svg>
+		</div>
+	 
+	</div>
+	
+</section>
+
+ 
+<section id="mapzone">
+		<div class="text-center p-4">
+			<p class="mr-auto xl:text-5xl lg:text-5xl text-2xl border-gray-600 border-b-2 inline-block mb-2 p-4 rounded-full">Zona Penjualan</p>		
+		</div>
+		<div id="map"></div>
+</section>
+
+<section id="new-product" class="p-4">
+	<div class="text-center p-4">
+		<p class="mr-auto xl:text-5xl lg:text-5xl text-2xl border-gray-600 border-b-2 inline-block mb-2">Penjualan Terbaru</p>		
+	</div>
+	<div class="flex justify-center flex-wrap">
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 p-2">
+		 	<%recentProducts.forEach(product => { %>
+				<div class="max-w-sm rounded overflow-hidden shadow-lg m-3">
+					<img class="w-full object-cover object-center xl:h-64 lg:h-64 h-32" src="<%= product.images[0].url %>" alt="Sunset in the mountains">
+					<div class="xl:px-6 xg:py-4 lg:px-6 lg:py-4 px-2 py-1">
+					    <div class="font-bold xl:text-xl xl:mb-2 lg:text-xl lg:mb-2 text-sm mb-1"><%= product.title %></div>
+					    <div class="flex items-center xl:mt-4 lg:mt-4 mt-1 text-gray-700 xl:text-sm lg:text-sm text-xs">
+	            			<i class="fas fa-map-marker-alt"></i>
+			                <h1 class="px-2"><%= product.location %></h1>
+	        			</div>
+			            <div class="flex items-center xl:mt-4 lg:mt-4 mt-0 text-gray-700 xl:text-sm lg:text-sm text-xs">
+			            	<i class="fas fa-user-alt"></i>
+			                <a href="/users/<%=product.author._id%>" class="px-2"><%= product.author.username %></a>
+			            </div>
+					    <p class="text-gray-700 xl:text-base xl:mt-2 lg:text-base lg:mt-2 text-sm mt-0">
+					      <%= product.description.slice(0,29) %>.....
+					    </p>
+					    <p class="xl:text-xl lg:text-xl text-xs font-bold">Rp. <%= product.price %></p>
+					    <div id="rating" class="flex justify-between xl:text-sm lg:text-sm text-xs">
+					    	<p>Rating</p>
+					    	<p><%= product.reviews.length %> Reviews</p>				    	
+					    </div>
+					    <div class="stars xl:text-sm lg:text-sm text-xs">
+							<% for(let i = 0; i < 5; i++) { %>
+							    <% if(i < product.avgRating) { %>
+							      <!-- display a full star -->
+							      <i class="fas fa-star text-yellow-custom"></i> 
+							    <% } else if((product.avgRating - i) > 0 && (product.avgRating - i) < 1) { %> 
+							      <!-- display a half start -->
+							      <i class="fas fa-star-half-alt text-yellow-custom"></i> 
+							    <% } else { %>
+							      <!-- display a empty start -->
+							      <i class="far fa-star text-yellow-custom"></i>
+							    <% } %>
+						    <% } %>				    	
+					    </div>
+					</div>
+					<div class="footer-card-product-custom flex justify-between items-center">
+					    <div class="xl:px-6 xl:py-4 lg:px-6 lg:py-4 px-2 py-1">
+							<a href="/products?categori=<%= product.categori %>" class="inline-block bg-gray-200 rounded-full xl:px-3 xl:py-1 xl:text-sm xl:mr-2 lg:px-3 lg:py-1 lg:text-sm lg:mr-2 px-2 py-0 text-xs mr-1 hover:bg-gray-500 font-semibold text-gray-700"><%= product.categori %></a>
+					    </div>
+					  	<div class="xl:px-6 xl:py-4 xl:text-sm lg:px-6 lg:py-4 lg:text-sm px-3 py-2 text-xs">
+					  		<%= product.stok %> Stok
+					  	</div>
+					</div>
+					<div class="inset-x-0 bottom-0">
+			  			<a href="/products/<%= product.id %>" class="text-center block bg-teal-300 hover:bg-teal-700 uppercase xl:text-sm lg:text-sm text-xs mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-2 my-3 p-2 rounded-full w-full">Detail</a>
+	 		        </div>  
+				</div>
+			<% }); %>
+		</div>			
+	</div>	
+</section>
+
+<section id="service">
+	<div class="text-center p-4">
+		<p class="mr-auto xl:text-5xl lg:text-5xl text-2xl border-gray-600 border-b-2 inline-block xl:mb-20 lg:mb-20 mb-10">Manfaat Menggunakan Waingapu Shop Zone</p>		
+	</div>
+	<div class="flex justify-center flex-wrap">
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 p-2">
+
+			<div class="max-w-sm rounded text-center lg:mt-0 md:mt-0 xl:mt-0 lg:mb-0 md:mb-0 xl:mb-0 sm:mb-0 xl:mb-6 lg:mb-6 mb-2 flex items-center justify-center relative shadow-xl">
+			  <div class="icon-server-custom xl:text-6xl lg:text-6xl text-4xl ">
+			  	<i class="fas fa-thumbs-up"></i>
+			  </div>
+			  <div class="xl:mt-16 xl:px-6 xl:py-4 lg:mt-16 lg:px-6 lg:py-4 mt-4 px-3 py-2">
+			    <div class="font-bold text-xl mb-2">Mudah</div>
+			    <p class="text-gray-700 xl:text-base lg:text-base text-sm">
+			      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			    </p>
+			  </div>
+			</div>
+
+			<div class="max-w-sm rounded text-center lg:mt-0 md:mt-0 xl:mt-0 sm:mt-0 mt-16 lg:mb-0 md:mb-0 xl:mb-0 sm:mb-0 xl:mb-6 lg:mb-6 mb-2 flex items-center justify-center relative shadow-xl">
+			  <div class="icon-server-custom xl:text-6xl lg:text-6xl text-4xl ">
+					<i class="fas fa-shield-alt"></i>
+			  </div>
+			  <div class="xl:mt-16 xl:px-6 xl:py-4 lg:mt-16 lg:px-6 lg:py-4 mt-4 px-3 py-2">
+			    <div class="font-bold text-xl mb-2">Aman</div>
+			    <p class="text-gray-700 xl:text-base lg:text-base text-sm">
+			      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			    </p>
+			  </div>
+			</div>
+
+			<div class="max-w-sm rounded text-center lg:mt-0 md:mt-0 xl:mt-0 sm:mt-0 mt-16 lg:mb-0 md:mb-0 xl:mb-0 sm:mb-0 xl:mb-6 lg:mb-6 mb-2 flex items-center justify-center relative shadow-xl">
+			  <div class="icon-server-custom xl:text-6xl lg:text-6xl text-4xl ">
+					<i class="fas fa-certificate"></i>
+			  </div>
+			  <div class="xl:mt-16 xl:px-6 xl:py-4 lg:mt-16 lg:px-6 lg:py-4 mt-4 px-3 py-2">
+			    <div class="font-bold text-xl mb-2">Terpercaya</div>
+			    <p class="text-gray-700 xl:text-base lg:text-base text-sm">
+			      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+			    </p>
+			  </div>
+			</div>
+ 
+
+		</div>
+	</div>
+	</main>
+	 
+</section>
+
+<script>
+	// mengambil access token mapbox
+	mapboxgl.accessToken = "<%= mapBoxToken %>";
+	// membuat variabel products menjadi data JSON dari data products yang dikirimkan dari server.
+	let products = { features: <%- JSON.stringify(products) %> }; 
+</script>
+
+<script src="/javascripts/allProductsClusterMap.min.js"></script>

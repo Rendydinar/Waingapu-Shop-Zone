@@ -1,0 +1,102 @@
+<section id="searchFilter" class="xl:p-0 lg:p-0 md:p-0 p-4">
+  <p class="xl:text-3xl lg:text-3xl text-xl w-full text-grey-darkest text-center mb-1">Mau Cari Barang Apa ?</p>
+  <div class="flex items-center w-full">
+  	<div class="w-full bg-white rounded shadow-2xl xl:p-4 lg:p-4 p-2 md:max-w-sm md:mx-auto">
+			<form action="/products" class="mb-4 md:flex md:flex-wrap md:justify-between" method="GET">
+				<div class="shadow flex w-full block">
+					<label for="namabarang" class="xl:text-sm lg:text-sm text-xs p-1">Nama Barang</label>
+			    	<input class="w-full rounded bg-gray-200 xl:text-sm lg:text-sm text-xs p-1" type="text" id="namabarang" name="search" value="<%= query.search %>" placeholder="Sepatu">
+				</div>
+
+
+				<div class="shadow h-full w-full xl:mt-2 lg:mt-2 mt-1">
+					<div class="flex items-center justify-between">
+						<label for="location" class="p-1 xl:text-sm lg:text-sm text-xs">Lokasi</label>
+						<input type="text" class="rounded p-1 w-full bg-gray-200 xl:text-sm lg:text-sm text-xs" id="location" name="location" value="<%= query.location %>" placeholder="Alamat Lokasi Penjualan">
+						<span class="text-center text-xs bg-teal-300 rounded-full"><a href="#" class="p-1 xl:text-xs lg:text-xs md:text-xs sm:text-xs very-small-text-custom " id="find-me">Lokasi saya</a></span>
+						<p id="status" class="text-xs text-red-700"></p>						
+					</div>
+					<div class="xl:mt-2 lg:mt-2 mt-1 xl:text-sm lg:text-sm text-xs">
+						<label for="location" class="xl:mb-2 lg:mb-2 mb-1 block">Radius Jarak Lokasi Penjualan</label>
+				   	<div class="flex items-center justify-between xl:p-2 lg:p-2 p-1">
+					   	<div>
+								<input type="radio" name="distance" id="distance25" value="25" <%= query.distance === '25' ? 'checked' : '' %>>
+								<label for="distance25">25 mil</label>
+							</div>
+							<div>
+								<input type="radio" name="distance" id="distance50" value="50" <%= query.distance === '50' ? 'checked' : '' %>>
+								<label for="distance50">50 mil</label>
+							</div>
+							<div>
+								<input type="radio" name="distance" id="distance100" value="100" <%= query.distance === '100' ? 'checked' : '' %>>
+								<label for="distance100">100 mil</label>
+							</div>
+				   	</div>
+						<div class="flex justify-end w-full xl:p-2 lg:p-2 p-1">
+							<a href="#" id="clear-distance" class="bg-teal-300 xl:p-2 lg:p-2 p-1 rounded-full text-xs"><i class="far fa-trash-alt mr-1"></i>clear</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="shadow xl:p-2 xl:mt-2 lg:p-2 lg:mt-2 p-1 mt-1 xl:text-sm lg:text-sm text-xs">
+					<label for="harga" class="xl:mb-2 lg:mb-2 mb-1"><span class="bg-teal-200 xl:p-2 lg:p-2 p-1 rounded-full">Rp. </span>Harga</label>
+			   	<div class="flex items-center">
+				   	<div>
+							<label for="min">min</label>
+							<input type="text" class="bg-gray-200 p-1 w-2/3" id="min" name="price[min]" min="0" max="10000" step="1" placeholder="Min" value="<%= query.price ? query.price.min : '' %>">		
+						</div>
+						<div>
+							<label for="max">max</label>
+							<input type="text" class="bg-gray-200 p-1 w-2/3" id="max" name="price[max]" min="0" max="10000" step="1" placeholder="Max" value="<%= query.price ? query.price.max : '' %>">	
+						</div>
+			   	</div>
+				</div>
+
+				<div class="shadow p-2 w-full xl:text-sm lg:text-sm text-xs">
+					<label for="harga" class="mb-2">Rating <i class="fas fa-star text-yellow-custom"></i></label>
+			   	<div class="flex justify-between">
+			   		<div class="flex items-center">
+							<input type="checkbox" id="one-star" value="1" name="avgRating[]" <%= query.avgRating && query.avgRating.includes('1') ? 'checked' : '' %>>
+							<label class="text-sm" for="one-star"><i class="fas fa-star text-yellow-custom text-xs"></i></label>			   			
+			   		</div>
+
+			   		<div class="flex items-center">
+	 						<input type="checkbox" id="two-stars" value="2" name="avgRating[]" <%= query.avgRating && query.avgRating.includes('2') ? 'checked' : '' %>>
+							<label class="text-sm" for="two-stars"><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i></label>			   			
+			   		</div>
+
+			   		<div class="flex items-center">
+							<input type="checkbox" id="three-stars" value="3" name="avgRating[]" <%= query.avgRating && query.avgRating.includes('3') ? 'checked' : '' %>>
+							<label class="text-sm" for="three-stars"><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i></label>			   			
+			   		</div>
+
+			   		<div class="flex items-center">
+							<input type="checkbox" id="four-stars" value="4" name="avgRating[]" <%= query.avgRating && query.avgRating.includes('4') ? 'checked' : '' %>>
+							<label class="text-sm" for="four-stars"><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i></label>			   			
+			   		</div>
+
+			   		<div class="flex items-center">
+							<input type="checkbox" id="five-stars" value="5" name="avgRating[]" <%= query.avgRating && query.avgRating.includes('5') ? 'checked' : '' %>>
+							<label class="text-sm" for="five-stars"><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i><i class="fas fa-star text-yellow-custom text-xs"></i></label>			   			
+			   		</div>
+					</div>
+	 			</div>
+		
+		 		<div class="flex items-center justify-end xl:p-2 xl:m-2 lg:p-2 lg:m-2 p-1 m-1 w-full xl:text-sm lg:text-sm text-xs">
+					<div class="xl:mr-2 xl:p-2 lg:mr-2 lg:p-2 mr-1 p-1 rounded-full bg-teal-200">
+						<a href="/products"><i class="fas fa-undo mr-1"></i>Reset</a>
+					</div>
+					<div class="xl:mr-2 xl:p-2 lg:mr-2 lg:p-2 mr-1 p-1 rounded-full bg-teal-200">
+			      <button class="rounded-full" type="submit"><i class="fas fa-search mr-1"></i>Cari</button>
+					</div>
+		 		</div>
+
+			</form>
+  	</div>
+  </div>
+ 	 
+	
+</section>
+
+
+<script src="/javascripts/use-my-location.min.js"></script>

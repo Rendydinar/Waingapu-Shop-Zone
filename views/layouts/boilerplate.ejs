@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= titlePage %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Include Bootstrap(BS4) CDN for development -->
+  <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  -->   
+    <link rel='stylesheet' href='/stylesheets/style-custom.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.min.css' />
+    <link rel='stylesheet' href='/pushbar/pushbar.css' />
+    <link rel="stylesheet" href="/fontawesome-free-5.9.0/css/all.min.css">
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+    <script src="/javascripts/jquery-3.4.1.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <script type="text/javascript" src="/pushbar/pushbar.js"></script>
+  </head>
+  <body>
+
+	<!-- import navbar component/partial -->
+	<% include ../partials/navbar  %>
+	<!-- import flash-messages component/partial -->
+  <% include ../partials/flash-messages  %>
+	<!-- import dari view child view (kita menganggap file ini sebagai parrent view) -->
+  <%- body -%>
+  <% if(titlePage === 'Product Index') { %>
+      <script src="/javascripts/product-index.min.js"></script>
+  <% } %>
+  <!-- import footer component/partial -->
+  <% include ../partials/footer %>
+
+   
+
+  </body>
+</html>
+

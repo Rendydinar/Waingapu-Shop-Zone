@@ -1,0 +1,82 @@
+<% layout('layouts/boilerplate') -%>
+<section id="index-product p-4 m-2">
+	<div class="grid grid-cols-12">
+		<div class="xl:col-span-4 lg:col-span-4 col-span-12">
+			<% include ../partials/searchFilter %>
+		</div>
+		<div class="xl:col-span-8 lg:col-span-8 col-span-12">
+			<div id="map"></div>
+		</div>
+	</div>
+
+	<% include ../partials/paginatePosts %>
+	<div class="flex flex-wrap justify-center">
+		<div class="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 p-2">
+			<!-- <input type="text" class="bg-transparant hover:bg-transparant" autofocus> -->
+			<% products.docs.forEach(function(product) { %>
+				<div class="max-w-sm rounded overflow-hidden shadow-lg m-3">
+				    <img class="w-full object-cover object-center xl:h-64 lg:h-64 h-32" src="<%= product.images[0].url %>" alt="Sunset in the mountains">
+				    <div class="xl:px-6 xg:py-4 lg:px-6 lg:py-4 px-2 py-1">
+					    <div class="font-bold xl:text-xl xl:mb-2 lg:text-xl lg:mb-2 text-sm mb-1"><a href="/products/<%= product.id %>"><%= product.title %></a></div>
+					    <div class="flex items-center xl:mt-4 lg:mt-4 mt-1 text-gray-700 xl:text-sm lg:text-sm text-xs">
+				    		<i class="fas fa-map-marker-alt"></i>
+				       		<h1 class="px-2"><%= product.location %></h1>
+				        </div>
+				        <div class="lex items-center xl:mt-4 lg:mt-4 mt-0 text-gray-700 xl:text-sm lg:text-sm text-xs">
+				      		<i class="fas fa-user-alt"></i>
+				          	<a href="/users/<%=product.author._id%>" class="px-2"><%= product.author.username %></a>
+				     	</div>
+					    <p class="ext-gray-700 xl:text-base xl:mt-2 lg:text-base lg:mt-2 text-sm mt-0">
+					      <%= product.description.slice(0,29) %>...
+					    </p>
+					    <p class="xl:text-xl lg:text-xl text-xs font-bold">Rp. <%= product.price %></p>
+					    <div id="rating" class="flex justify-between xl:text-sm lg:text-sm text-xs">
+					    	<p>Rating</p>
+					    	<p>  <%= product.reviews.length %> Reviews</p>				    	
+					    </div>
+					    <div class="stars xl:text-sm lg:text-sm text-xs">
+							<% for(let i = 0; i < 5; i++) { %>
+						    <% if(i < product.avgRating) { %>
+							      <!-- display a full star -->
+							      <i class="fas fa-star text-yellow-custom"></i> 
+							    <% } else if((product.avgRating - i) > 0 && (product.avgRating - i) < 1) { %> 
+							      <!-- display a half start -->
+							      <i class="fas fa-star-half-alt text-yellow-custom"></i> 
+							    <% } else { %>
+							      <!-- display a empty start -->
+							      <i class="far fa-star text-yellow-custom"></i>
+							    <% } %>
+							<% } %>				    	
+					    </div>
+				    </div>
+				    <div class="footer-card-product-custom flex justify-between items-center">
+					  	<div class="xl:px-6 xl:py-4 lg:px-6 lg:py-4 px-2 py-1">
+					    	<a href="/products?categori=<%= product.categori %>" class="inline-block bg-gray-200 rounded-full xl:px-3 xl:py-1 xl:text-sm xl:mr-2 lg:px-3 lg:py-1 lg:text-sm lg:mr-2 px-2 py-0 text-xs mr-1 hover:bg-gray-500 font-semibold text-gray-700"><%= product.categori %></a>
+					  	</div>
+				  		<div class="xl:px-6 xl:py-4 xl:text-sm lg:px-6 lg:py-4 lg:text-sm px-3 py-2 text-xs">
+				  			<%= product.stok %> Stoks
+				  		</div>
+				    </div>
+					<div class="inset-x-0 bottom-0">
+			  			<a href="/products/<%= product.id %>" class="text-center block bg-teal-300 hover:bg-teal-700 uppercase xl:text-sm lg:text-sm text-xs mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-2 my-3 p-2 rounded-full w-full">Detail</a>
+	 		        </div>   				
+				</div>			
+			<% }); %>
+		</div>
+	
+	</div>
+ 
+ 
+	<% include ../partials/paginatePosts %>	
+</section>
+
+
+<script>
+	// mengambil access token mapbox
+	// token mapbox akan digunakan untuk menghandle cluster semua data map.
+	mapboxgl.accessToken = "<%= mapBoxToken %>";
+	// membuat variabel products menjadi data JSON dari data products yang dikirimkan dari server.
+	let products = { features: <%- JSON.stringify(products.docs) %> }; 
+</script>
+
+<script src="/javascripts/allProductsClusterMap.min.js"></script>

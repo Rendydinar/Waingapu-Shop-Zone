@@ -1,0 +1,262 @@
+<style>
+	 .input-form-search-aside-custom{
+ 		width: 11rem;
+	 }
+	 .input-form-search-header-custom {
+	 	width: 5rem;
+	 }
+
+	 @media (min-width: 640px) {
+		 .input-form-search-header-custom {
+		 	width: 70%;
+		 }
+
+
+  .dropdown:hover .dropdown-menu {
+      display: block;
+  }
+
+  .dropdown-profile:hover .dropdown-menu {
+    display: block;
+  }
+
+/*	 @media (min-width: 400px) {
+		 .input-form-search-header-custom {
+		 	width: 20rem;
+		 }
+*/
+	 }
+
+</style>
+
+<header>
+	<nav class="flex items-center lg:justify-between xl:justify-between flex-wrap bg-teal-500 xl:p-6 lg:p-6 p-4 z-50">
+	  	<div class="xl:hidden lg:hidden pushbar_main_conten">
+		    <button data-pushbar-target="left" class="mr-2 flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+		      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+		    </button>
+	  	</div>
+	  	<div class="flex items-center flex-shrink-0 text-white mr-6">
+		    <svg class="fill-current h-8 w-8 mr-2 xl:block lg:block hidden" width="54" height="54" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg>
+		    <a href="/"><svg class="fill-current xl:hidden lg:hidden block" width="26" height="26" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z"/></svg></a>
+		    
+	    	<span class="font-semibold text-xl xl:block lg:block hidden tracking-tight"><a href="/">Waingapu Shop Zone</a></span>
+	 	</div>
+
+		<!-- akhir header-untuk-pc-laptop-tv -->
+
+
+	    <!-- header-untuk-pc-laptop-tv -->
+	    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden sm:hidden">
+		    <div class="text-sm lg:flex-grow">
+		      	<a href="/products" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+		        	Barang
+		      	</a>
+		        <span class="dropdown inline-block relative ">
+				   	<button class="text-teal-200 hover:text-white mr-4 inline-flex items-center">
+			          	<span class="mr-1">Ketegori</span>
+				        <svg  class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+				            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+				        </svg>
+		       		</button>	      
+				    <ul class="dropdown-menu absolute z-50 hidden text-gray-700 pt-1 text-xs">
+		    			<% categories.forEach(categori => { %>
+					      	<li class="">
+					      		<a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/products?categori=<%= categori %>"><%= categori %></a>
+					      	</li>
+						<% }); %>
+				    </ul>
+		        </span>
+	 			<% if(currentUser) { %>
+			    	<a href="products/new" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+			        	<i class="fas fa-store mr-1"></i>Tambahkan Penjualan
+			     	</a>
+				<% } %>
+		    </div>
+
+			<!-- Search field -->
+		    <form class="mr-2 xl:w-1/2 w-1/4 flex items-center" action="/products" method="GET">
+			    <input class="bg-grey-lightest border-2 focus:border-orange rounded-lg shadow-inner w-full" placeholder="Search" type="text" name="search">
+			    <button class="inline-block text-sm px-4 py-2 leading-none rounded text-white hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 mr-1" type="submit"><i class="fas fa-search "></i></button>
+		    </form>
+		    <!-- END Search field -->
+
+		    <div class="flex items-start">
+		    	<!-- cek apakah user sudah login atau belum -->
+			 	<% if(!currentUser) { %>
+					<!-- render jika user belum login -->
+			      	<a href="/register" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 mr-1"><i class="fas fa-user-plus mr-1"></i>Daftar</a>
+			      	<a href="/login" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 mr-1"><i class="fas fa-sign-in-alt mr-1"></i>Login</a>
+				<% } else { %>
+					<!-- render jika user sudah login -->
+					<span class="dropdown-profile mr-1">
+						<img src="<%= currentUser.image.secure_url %>" alt="Username" width="30" height="25" class="rounded">
+					    <ul class="dropdown-menu z-50 float-left absolute hidden text-gray-700 pt-1 text-xs">
+					      	<li class="">
+					      		<a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/profile">Profile</a>
+					      	</li>
+					      	<li class="">
+					      		<a class="rounded bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/products/new">Tambahkan Penjualan</a>
+					      	</li>
+					      	<li class="">
+					      		<a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/profile/edit">Ubah Profile</a>
+					      	</li>
+					        <li class="">
+					      		<a class="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/logout">Logout</a>
+					      	</li>
+					    </ul>
+					</span>
+		     		<a href="/logout" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 mr-1"><i class="fas fa-sign-out-alt mr-1"></i>Keluar</a>
+				<% } %>
+		    </div>
+	  	</div>
+
+	  
+		 
+	  	<!-- header-untuk-mobile-tablet -->
+	  	<div class="w-max-full lg:hidden xl:hidden flex-grow items-center flex block">
+		    <div class="md:text-lg text-sm flex-grow">
+		    	<a href="/products" class="block inline-block mt-0 text-white hover:text-white mr-2">
+		        	<i class="fas fa-archive"></i>
+		      	</a>
+
+ 			 	<% if(currentUser) { %>
+			      	<a href="/products/new" class="block inline-block mt-0 text-teal-200 hover:text-white">
+			        	<i class="fas fa-store mr-1"></i> 
+			     	 </a>
+				<% } %>
+		    </div>
+	 
+ 
+
+		    <div class="flex items-center">
+
+				<!-- Search field -->
+				<form class="flex-grow" action="/products" method="GET">
+				    <input class="text-xs bg-grey-lightest border-2 focus:border-orange rounded-lg shadow-inner input-form-search-header-custom" placeholder="Search" type="text" name="search">
+				    <button class="inline-block xl:text-sm xl:px-4 xl:py-2 lg:text-sm lg:px-4 lg:py-2 text-xs px-1 py-1 leading-none rounded text-white hover:text-teal-500 hover:bg-white lg:mt-0" type="submit"><i class="fas fa-search "></i></button>
+				</form>
+				<!-- END Search field -->
+
+		    	<!-- cek apakah user sudah login atau belum -->
+			 	<% if(!currentUser) { %>
+					<!-- render jika user belum login -->
+
+			      	<a href="/register" class="inline-block md:text-lg text-sm md:p-2 p-1 leading-none text-white hover:text-teal-500 hover:bg-white"><i class="fas fa-user-plus"></i></a>
+			      	<a href="/login" class="inline-block md:text-lg text-sm md:p-2 p-1 leading-none rounded text-white hover:text-teal-500 hover:bg-white mt-0"><i class="fas fa-sign-in-alt"></i></a>
+				<% } else { %>
+					<!-- render jika user sudah login -->
+					<span class="dropdown-profile ml-2 flex items-center">
+						<img src="<%= currentUser.image.secure_url %>" alt="Username" width="25" height="20" class="rounded">
+					    <ul class="dropdown-menu float-left absolute mt-4 hidden text-gray-700 pt-1 font-dropdown-custom sm:text-xs md:text-xs">
+					    	<li class="">
+					    		<a class="rounded-t bg-gray-200 hover:bg-gray-400 md:py-2 py-1 px-2 sm:py-2 block whitespace-no-wrap" href="/profile">Profile</a>
+					    	</li>
+					      	<li class="">
+					      		<a class="rounded-b bg-gray-200 hover:bg-gray-400 md:py-2 py-1 px-2 sm:py-2 block whitespace-no-wrap" href="/products/new">Tambahkan Penjualan</a>
+					     	</li>
+					      	<li class="">
+					      		<a class="rounded-b bg-gray-200 hover:bg-gray-400 md:py-2 py-1 px-2 sm:py-2 block whitespace-no-wrap" href="/profile/edit">Ubah Profile</a>
+					      	</li>
+					      	<li class="">
+					      		<a class="rounded-b bg-gray-200 hover:bg-gray-400 md:py-2 py-1 px-2 sm:py-2 block whitespace-no-wrap" href="/logout">Logout</a>
+					      	</li>
+					    </ul>
+					</span>
+		     		<a href="/logout" class="inline-block text-lg px-1 py-1 leading-none rounded text-white hover:text-teal-500 hover:bg-white ml-2"><i class="fas fa-sign-out-alt mr-1"></i></a>
+
+				<% } %>
+		    </div>
+	  	</div>
+	  	<!--akhir header-untuk-mobile-tablet -->
+	</nav>
+</header>
+
+<aside data-pushbar-id="left" data-pushbar-direction="left" class="bg-scroll">
+	<div class="title"><span data-pushbar-close class="close push_right"></span></div>
+	<ul class="menu flex flex-col flex-wrap">
+		<% if(currentUser) { %>
+			<li>
+				<div class="overflow-hidden shadow">
+				  	<img src="https://i.imgur.com/dYcYQ7E.png" class="w-full" />
+				    <div class="flex justify-center -mt-8 ">
+				        <img src="<%= currentUser.image.secure_url %>" class="rounded-full border-solid w-20 h-20 border-white border-2 -mt-3">		
+				    </div>
+					<div class="text-center md:px-4 md:py-2 md:m-2 px-2 py-1 m-1 md:text-sm text-xs">
+						<h3 class="text-black text-sm bold font-sans"><%= currentUser.username %></h3>
+			            <div class="flex items-center mt-4 text-gray-700 h-6 w-6">
+							<i class="fas fa-phone-square-alt"></i>
+			              	<h1 class="px-2 text-sm"><%= currentUser.nomorTelfon %></h1>
+			            </div>
+									
+			            <div class="flex items-center mt-4 text-gray-700 h-6 w-6">
+							<i class="fas fa-envelope"></i>
+			              	<h1 class="px-2 text-sm"><%= currentUser.email %></h1>
+			            </div>
+					</div>			  	
+				</div>
+			</li>
+		<% } %>
+		<% if(!currentUser) { %>
+			<li>
+				<div class="overflow-hidden shadow">
+				  	<img src="https://i.imgur.com/dYcYQ7E.png" class="w-full" />
+				    <div class="flex justify-center -mt-8 ">
+				        <img src="/images/default-user-avatar.png" class="rounded-full w-20 h-20 object-cover object-center border-solid border-white border-2 -mt-3">		
+				    </div>
+				</div>
+			</li>
+
+		<% } %>
+ 		<li class="md:px-4 md:py-2 md:m-2 px-2 py-1 m-1 md:text-sm text-xs mt-4">
+			<!-- Search field -->
+		  	<form class="flex w-full" action="/products" method="GET">
+		    	<input class="bg-grey-lightest border-2 focus:border-orange rounded-lg shadow-inner input-form-search-aside-custom" placeholder="Search" type="text" name="search">
+			    <button class="inline-block text-sm px-4 py-2 leading-none rounded text-gray-400 hover:text-teal-500 hover:bg-gray-700 mr-1" type="submit"><i class="fas fa-search "></i></button>
+		  	</form>
+		  	<!-- END Search field -->
+		</li>
+		<li class="md:px-4 md:py-2 md:m-2 px-2 py-1 m-1 md:text-sm text-xs">Barang</li>
+		<li class="md:px-4 md:py-2 md:m-2 px-2 py-1 m-1 md:text-sm text-xs">
+			<span class="dropdown">
+			  	<button class="inline-flex items-center">
+		        	<span class="">Ketegori</span>
+		          	<svg  class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+		            	<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+		          	</svg>
+		        </button>	      
+			    <ul class="dropdown-menu absolute hidden text-gray-700 w-10/12">
+	    			<% categories.forEach(categori => { %>
+				      	<li class="">
+				      		<a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="/products?categori=<%= categori %>"><%= categori %></a>
+				      	</li>
+					<% }); %>
+			    </ul>
+	      	</span>
+		</li>
+
+		<!-- cek apakah user sudah login atau belum -->
+	 	<% if(!currentUser) { %>
+			<!-- render jika user belum login -->
+			<div class="flex flex-wrap items-center justify-center mb-6 md:text-sm text-xs">
+      			<a href="/register" class="inline-block text-sm px-2 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white bg-teal-500 mt-0 mr-1"><i class="fas fa-user-plus mr-1"></i>Daftar</a>
+	      		<a href="/login" class="inline-block text-sm px-2 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white bg-teal-500 mt-0 mt-0 mr-1"><i class="fas fa-sign-in-alt mr-1"></i>Login</a>
+			</div>
+
+		<% } else { %>
+			<!-- render jika user sudah login -->
+			<li class="md:px-4 md:py-2 md:m-2 px-2 py-1 m-1 md:text-sm text-xs">Tambahkan Penjualan</li>
+			<li class="md:px-4 md:py-2 md:m-2 px-2 py-1 m-1 md:text-sm text-xs"><a class="rounded-t block whitespace-no-wrap" href="/profile">Profile</a></li>
+      		<li class="flex justify-center mb-6">
+      			<a href="/logout" class="inline-block text-sm px-2 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white bg-teal-500 mt-0 lg:mt-0 mr-1"><i class="fas fa-sign-out-alt mr-1"></i>Keluar</a>
+      		</li>
+		<% } %>
+	</ul>
+</aside>
+ 
+ 
+<script src="/javascripts/pushbar.min.js"> </script> 
+  
+
+
+

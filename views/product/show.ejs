@@ -1,0 +1,404 @@
+<% layout('layouts/product-show-layout') -%>
+
+
+
+<section id="productshow" class="p-4">
+  <div class="grid grid-cols-12 ">
+    <div class="xl:col-span-8 lg:col-span-8 col-span-12 p-2">
+      <!-- <div class="flex flex-row items-center"> -->
+      <div class="carousel relative xl:shadow-2xl lg:shadow-2xl shadow-xl bg-white">
+        <div class="carousel-inner relative overflow-hidden w-full">
+          <% product.images.forEach(function(image, i) { %>
+            <input class="carousel-open" type="radio" id="carousel-<%= i %>" name="carousel" aria-hidden="true" hidden="" checked="checked">
+            <div class="carousel-item absolute opacity-0" style="height:50vh;">
+              <img class="object-cover object-center block h-full w-full" src="<%= image.url %>" alt="Surf board image" width="200px" height="200px">
+              <!-- <div class="block h-full w-full bg-indigo-500 text-white text-5xl text-center">Slide 1</div> -->
+            </div>
+<!--             <label for="carousel-<%= i-1 %>" class="prev control-1 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+            <label for="carousel-<%= i+1 %>" class="next control-1 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label> -->
+
+          <% }); %>          
+
+          <!-- Add additional indicators for each slide-->
+<!--           <ol class="carousel-indicators">
+            <li class="inline-block xl:mr-3 lg:mr-3 mr-1">
+              <label for="carousel-0" class="carousel-bullet cursor-pointer block text-4xl text-gray-700 hover:text-blue-700">•</label>
+            </li>
+            <li class="inline-block xl:mr-3 lg:mr-3 mr-1">
+              <label for="carousel-1" class="carousel-bullet cursor-pointer block text-4xl text-gray-700 hover:text-blue-700">•</label>
+            </li>
+            <li class="inline-block xl:mr-3 lg:mr-3 mr-1">
+              <label for="carousel-2" class="carousel-bullet cursor-pointer block text-4xl text-gray-700 hover:text-blue-700">•</label>
+            </li>
+          </ol> -->
+
+        </div>
+      </div>    
+
+      <!-- photoswipe    -->
+      <div class="w-full">
+        <!-- Galley wrapper that contains all items -->
+        <div id="gallery" class="flex gallery xl:mt-4 xl:h-40 lg:mt-4 lg:h-40 mt-2 h-20" itemscope >
+          <% product.images.forEach(function(image) { %>
+          <!-- Use figure for a more semantic html -->
+            <figure itemprop="associatedMedia" class="xl:h-30 xl:w-40 xl:p-2 lg:h-30 lg:w-40 lg:p-2 h-15 w-20 p-1 figure-photoswipe" itemscope>
+              <a href="<%= image.url %>" class="object-cover object-center" data-size="800x600" itemprop="contentUrl">
+                <img src="<%= image.url %>" caption="product" class="img-photoswipe w-full h-full object-cover object-center" itemprop="thumbnail" alt="Image description">
+              </a>
+            </figure>
+          <% }); %>                        
+
+        </div>
+
+      </div>
+
+      <!-- Some spacing 😉 -->
+      <div class="spacer"></div>
+      <!-- Root element of PhotoSwipe. Must have class pswp. -->
+      <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- Background of PhotoSwipe. 
+                 It's a separate element as animating opacity is faster than rgba(). -->
+        <div class="pswp__bg"></div>
+        <!-- Slides wrapper with overflow:hidden. -->
+        <div class="pswp__scroll-wrap">
+          <!-- Container that holds slides. 
+          PhotoSwipe keeps only 3 of them in the DOM to save memory.
+          Don't modify these 3 pswp__item elements, data is added later on. -->
+          <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+          </div>
+          <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+          <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+              <!--  Controls are self-explanatory. Order can be changed. -->
+              <div class="pswp__counter"></div>
+              <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+              <button class="pswp__button pswp__button--share" title="Share"></button>
+              <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+              <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+              <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+              <!-- element will get class pswp__preloader--active when preloader is running -->
+              <div class="pswp__preloader">
+                <div class="pswp__preloader__icn">
+                  <div class="pswp__preloader__cut">
+                    <div class="pswp__preloader__donut"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+              <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+              <div class="pswp__caption__center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- akhir photoswipe -->
+    </div>
+
+    <div class="xl:col-span-4 lg:col-span-4 col-span-12 xl:p-4 lg:p-4 p-4 shadow-xl">
+      <h1 class="font-bold xl:text-xl xl:mb-2 lg:text-xl lg:mb-2 text-sm mb-1"><%= product.title %></h1>
+      <p class="xl:text-xl lg:text-xl text-xs font-bold">Rp. <%= product.price %></p>
+      <p class="xl:text-sm lg:text-sm text-xs font-semibold text-gray-700 -mb-2">Rating</p>
+      <div id="rating" class="flex items-center xl:text-sm lg:text-sm text-xs">
+        <p><%= product.reviews.length %> Reviews</p>  
+        <div class="stars p-2 xl:text-sm lg:text-sm text-xs">
+          <% for(let i = 0; i < 5; i++) { %>
+              <% if(i < product.avgRating) { %>
+                <!-- display a full star -->
+                <i class="fas fa-star text-yellow-custom"></i> 
+              <% } else if((product.avgRating - i) > 0 && (product.avgRating - i) < 1) { %> 
+                <!-- display a half start -->
+                <i class="fas fa-star-half-alt text-yellow-custom"></i> 
+              <% } else { %>
+                <!-- display a empty start -->
+                <i class="far fa-star text-yellow-custom"></i>
+              <% } %>
+            <% } %>             
+        </div>            
+      </div>
+      <div class="flex items-center text-gray-700 xl:mt-4 lg:mt-4 mt-0   text-gray-700 xl:text-sm lg:text-sm text-xs">
+        <i class="fas fa-map-marker-alt"></i>
+        <h1 class="px-2"><span class="font-bold">Lokasi: </span><%= product.location %></h1>
+      </div>    
+      <div class="flex mt-2 text-gray-700 xl:mt-4 lg:mt-4 mt-2 text-gray-700 xl:text-sm lg:text-sm text-xs">
+          <i class="fas fa-clipboard"></i>
+          <p href="/users/<%=product.author._id%>" class="px-2"><span class="font-bold">Deskripsi: </span><%= product.description %></p>
+      </div>
+      <div class="flex mt-2 text-gray-700 xl:mt-4 lg:mt-4 mt-2 text-gray-700 xl:text-sm lg:text-sm text-xs">
+          <i class="fas fa-clipboard-list"></i>
+          <p href="/users/<%=product.author._id%>" class="px-2"><span class="font-bold">Ketegori: </span><%= product.categori %></p>
+      </div>
+      <div class="flex mt-2 text-gray-700 xl:mt-4 lg:mt-4 mt-2 text-gray-700 xl:text-sm lg:text-sm text-xs">
+      	<i class="fas fa-clipboard-check"></i>
+          <p href="/users/<%=product.author._id%>" class="px-2"><span class="font-bold">Stok: </span><%= product.stok %> Buah</p>
+      </div>
+
+      <% if(currentUser && product.author.equals(currentUser._id)) { %>
+
+        <div class="flex items-center justify-end xl:p-2 xl:m-2 lg:p-2 lg:m-2 p-1 m-1 w-full xl:text-sm lg:text-sm text-xs">
+          <div class="xl:mr-2 xl:p-2 lg:mr-2 lg:p-2 mr-1 p-1 rounded-full bg-teal-200">
+             <button class="rounded-full modal-open"><i class="far fa-trash-alt mr-1"></i>Hapus</button>
+          </div>
+          <div class="xl:mr-2 xl:p-2 lg:mr-2 lg:p-2 mr-1 p-1 rounded-full bg-teal-200">
+            <a href="/products/<%= product.id  %>/edit" class="rounded-full"><i class="fas fa-edit mr-1"></i>Ubah</a>
+          </div>
+        </div>
+      <% } %>
+
+    </div>
+  </div>
+  
+  <!-- map -->
+  <div id="map" class="p-4 mb-4"></div>
+  
+  <!-- informasi penjual -->
+  <div class="grid grid-cols-12 p-4">
+    <div class="xl:col-span-6 lg:col-span-6 col-span-12 xl:p-2 lg:p-2 p-1 w-full flex items-center justify-between" >
+      <p class="xl:text-3xl lg:text-3xl text-xl border-gray-600 border-b-2">Informasi Penjual</p>
+    </div>
+    <div class="xl:col-span-6 lg:col-span-6 col-span-12 p-2 w-full shadow-lg p-4 text-lg">
+      <div class="flex items-center text-gray-700 xl:text-sm lg:text-sm text-xs">
+        <i class="fas fa-user-alt"></i>
+        <a href="/users/<%=product.author._id%>" class="xl:px-2 lg:px-2 p-1"><span class="font-bold">Nama: </span><%= product.author.username %></a>
+      </div>    
+      <div class="flex items-center text-gray-700 xl:text-sm lg:text-sm text-xs">
+          <i class="fas fa-envelope"></i>
+          <p href="/users/<%=product.author._id%>" class="px-2"><span class="font-bold">Email: </span><%= product.author.email %></p>
+      </div>
+      <div class="flex items-center text-gray-700 xl:text-sm lg:text-sm text-xs">
+          <i class="fas fa-phone-square-alt"></i>
+          <p href="/users/<%=product.author._id%>" class="px-2"><span class="font-bold">Nomor Telepon: </span><%= product.author.nomorTelfon %></p>
+      </div>
+      <div class="flex items-center text-gray-700 xl:text-sm lg:text-sm text-xs">
+          <a href="<%= product.author.facebook %>" target="_blank" rel="noopener" ><i class="fab fa-facebook-square"></i><span class="ml-2"> Facebook</span></a>
+          <a href="<%= product.author.instagram %>" class="ml-4" target="_blank" rel="noopener"><i class="fab fa-instagram"></i><span class="ml-2"> Instagram</span></a>
+      </div>
+
+        
+        <a href="/users/<%= product.author._id %>" class="text-center block bg-teal-300 hover:bg-teal-dark uppercase xl:text-sm lg:text-sm text-xs mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-2 my-3 p-2 rounded-full w-full">Lihat Profile</a>
+    </div>
+  </div>
+
+  <!-- Modal Delete Product   -->
+  <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      
+      <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+        <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+          <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+        </svg>
+        <span class="text-sm">(Esc)</span>
+      </div>
+
+      <!-- Add margin if you want to see some of the overlay behind the modal-->
+      <div class="modal-content py-4 text-left px-6">
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p class="xl:text-2xl lg:text-2xl text-lg font-bold text-red-700">Hapus Barang!</p>
+          <div class="modal-close cursor-pointer z-50">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!--Body-->
+        <div class="xl:text-sm lg:text-sm md:text-sm text-xs text-red-600">
+          <p>Anda yakin ingin menghapus barang ?</p>
+          <p>Dengan menghapus barang seluruh data barang akan dihilangkan</p>
+          <p>Anda dan pembeli tidak akan melihat barang setelah dihapus</p>               
+        </div>
+
+        <!--Footer-->
+        <div class="flex justify-end pt-2">
+          <form action="/products/<%= product.id %>?_method=DELETE" method="POST">
+            <button class="rounded-full xl:px-4 xl:p-3 lg:px-4 lg:p-3 md:px-4 md:p-3 px-1 p-1 bg-red-500 rounded-lg text-white hover:bg-red-400" type="submit"><i class="far fa-trash-alt mr-2"></i>Hapus</button>
+           </form>                                         
+          <button class="ml-2 modal-close rounded-full xl:px-4 xl:p-3 lg:px-4 lg:p-3 md:px-4 md:p-3 px-1 p-1 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400">Batal</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <!-- End Modal Delete Product   -->
+
+
+  <!-- Review Barang -->
+  <div class="grid grid-cols-12 p-4">
+    <div class="xl:col-span-6 lg:col-span-6 col-span-12 xl:p-2 lg:p-2 p-1 w-full flex items-center justify-between" >
+      <p class="xl:text-3xl lg:text-3xl text-xl border-gray-600 border-b-2">Review Barang</p>
+    </div>
+    <div class="xl:col-span-6 lg:col-span-6 col-span-12 p-2 w-full shadow-lg p-4 text-lg overflow-auto h-full">
+      <div class="bg-scroll">
+        <!-- menampilkan semua review dari produk -->
+        <% product.reviews.forEach(function(review) { %>
+          <div class="w-full">
+            <p class="font-bold xl:text-sm lg:text-sm text-xs"><%= review.author.username %></p>
+            <div class="stars xl:text-sm lg:text-sm text-xs">
+              <% for(let i = 0; i < 5; i++) { %>
+                  <% if(i < review.rating) { %>
+                    <!-- display a full star -->
+                    <i class="fas fa-star text-yellow-custom"></i> 
+                  <% } else if((review.rating - i) > 0 && (review.rating - i) < 1) { %> 
+                    <!-- display a half start -->
+                    <i class="fas fa-star-half-alt text-yellow-custom"></i> 
+                  <% } else { %>
+                    <!-- display a empty start -->
+                    <i class="far fa-star text-yellow-custom"></i>
+                  <% } %>
+                <% } %>                             
+              <span class="xl:text-sm lg:text-sm text-xs"><%= new Date(review.author._id.getTimestamp()).getDay() %>/<%= new Date(review.author._id.getTimestamp()).getMonth() %>/<%= new Date(review.author._id.getTimestamp()).getFullYear() %></span>  
+            </div>         
+            <p class="xl:text-sm lg:text-sm text-xs"><%= review.body %></p>    
+          </div>
+          <!-- dilindungi dengan autorization -->
+          <% if(currentUser && review.author.equals(currentUser._id)) { %>
+            <div> 
+              <button class="xl:p-2 lg:p-2 p-1 mt-1 rounded-full bg-teal-300 toggle-edit-form mb-2 xl:text-sm lg:text-sm text-xs" type="submit"><i class="fas fa-edit mr-1"></i>Ubah</button>
+              <form action="/products/<%= product.id %>/reviews/<%= review.id %>?_method=PUT" method="POST" class="edit-review-form w-full">
+                
+                <div class="w-full bg-grey-lightest font-sans">
+                  <div class="border rounded flex flex-col shadow bg-white w-full xl:text-sm lg:text-sm text-xs">
+                  <div class="box__title bg-grey-lighter px-3 py-2 border-b"><h3 class="text-grey-darker font-medium">Review Barang</h3><p class="text-xs text-red-600">minimal 3 karakter</p></div>      
+
+                    <textarea name="review[body]"  placeholder="Review Barang...." class="text-grey-darkest flex-1 p-2 m-1 bg-transparent" rows="5" required><%= review.body %></textarea>
+                  </div>
+                </div>
+
+                <fieldset class="starability-basic flex w-full">
+                  <input type="radio" id="edit-rate0" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                  <input type="radio" id="edit-rate1" name="review[rating]" value="1" />
+                  <label for="edit-rate1" title="Terrible">1 star</label>
+                  <input type="radio" id="edit-rate2" name="review[rating]" value="2" />
+                  <label for="edit-rate2" title="Not good">2 stars</label>
+                  <input type="radio" id="edit-rate3" name="review[rating]" value="3" />
+                  <label for="edit-rate3" title="Average">3 stars</label>
+                  <input type="radio" id="edit-rate4" name="review[rating]" value="4" />
+                  <label for="edit-rate4" title="Very good">4 stars</label>
+                  <input type="radio" id="edit-rate5" name="review[rating]" value="5" />
+                  <label for="edit-rate5" title="Amazing" class="mb-1">5 stars</label>
+                  <button class="clear-rating text-xs bg-red-700 text-white p-1 rounded-full" type="button">Clear Rating</button>
+
+                </fieldset>
+
+                <div class="flex items-center justify-end w-full">
+                  <div class="p-2 rounded-full bg-teal-300">
+                    <button class="block bg-teal-300 hover:bg-teal-dark xl:text-sm lg:text-sm text-xs xl:p-2 lg:p-2 rounded-full" type="submit"><i class="fas fa-edit mr-1"></i>Ubah</button>
+                  </div>
+
+                </div>
+               </form>
+               <script> 
+                  // fungsi untuk mengisis bintang/rating sesuai dengan rating yang sudah dimasukan user agar berwarna (kelihatan berapa bintang)
+                  $('#edit-rate<%= review.rating %>').prop('checked', true);
+                </script>
+                <form action="/products/<%= product.id %>/reviews/<%= review.id %>?_method=DELETE" method="POST" class="edit-review-form w-full mt-2">
+                  <div class="flex items-center justify-end w-full">
+                    <div class="p-2 rounded-full bg-teal-300">
+                      <button data-product-id="<%= product.id %>" data-review-id="<%= review.id %>" class="block bg-teal-300 hover:bg-teal-dark xl:text-sm lg:text-sm text-xs xl:p-2 lg:p-2 rounded-full" type="submit"><i class="far fa-trash-alt mr-1"></i>Hapus</button>
+                    </div>
+                  </div>
+                </form>                              
+            </div>
+          <% } %>      
+          <hr>
+         <% }); %>        
+        </div>
+
+        <div class="mt-2">
+
+          <% if(currentUser) { %>  
+            <form action="/products/<%= product.id %>/reviews" method="POST" class="w-full">
+
+              <div class="w-full bg-grey-lightest font-sans xl:text-sm lg:text-sm text-xs">
+                <div class="border rounded flex flex-col shadow bg-white w-full">
+                  <div class="box__title bg-grey-lighter px-3 py-2 border-b"><h3 class="text-grey-darker font-medium">Review Barang</h3><p class="text-xs text-red-600">minimal 3 karakter</p></div>      
+                  <textarea name="review[body]"  placeholder="Review Barang...." class="text-grey-darkest flex-1 p-2 m-1 bg-transparent" rows="5" required></textarea>
+                </div>
+              </div>
+
+
+              <fieldset class="starability-basic flex w-full xl:text-sm lg:text-sm text-xs">
+                <input type="radio" id="rate0" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No review[rating]." />
+                <input type="radio" id="rate1" name="review[rating]" value="1" />
+                <label for="rate1" title="Buruk">1 star</label>
+                <input type="radio" id="rate2" name="review[rating]" value="2" />
+                <label for="rate2" title="Kurang Bagus">2 stars</label>
+                <input type="radio" id="rate3" name="review[rating]" value="3" />
+                <label for="rate3" title="Lumayan">3 stars</label>
+                <input type="radio" id="rate4" name="review[rating]" value="4" />
+                <label for="rate4" title="Baik">4 stars</label>
+                <input type="radio" id="rate5" name="review[rating]" value="5" />
+                <label for="rate5" title="Sangat Baik" class="mb-1">5 stars</label>
+                <button class="clear-rating text-xs bg-red-700 text-white p-1 rounded-full" type="button">Clear Rating</button>
+
+              </fieldset>
+
+              <!-- <input type="submit"> -->
+              <div class="flex justify-end">
+                <button class="block bg-teal-300 hover:bg-teal-dark uppercase xl:text-sm lg:text-sm text-xs xl:p-2 lg:p-2 p-2 rounded-full" type="submit">Tambah Review</button>
+              
+              </div>
+            </form>
+          <% } else { %>
+            <h2><a href="/login?returnTo=true" class="text-center block bg-teal-300 hover:bg-teal-dark uppercase xl:text-sm lg:text-sm text-xs mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-2 my-3 p-2 rounded-full w-full">Create a Review</a></h2>    
+          <% } %>
+          
+        </div>
+    </div>
+  </div>
+
+</section> 
+
+<script>
+  var openmodal = document.querySelectorAll('.modal-open')
+  for (var i = 0; i < openmodal.length; i++) {
+    openmodal[i].addEventListener('click', function(event){
+    event.preventDefault()
+    toggleModal()
+    })
+  }
+  
+  const overlay = document.querySelector('.modal-overlay')
+  overlay.addEventListener('click', toggleModal)
+  
+  var closemodal = document.querySelectorAll('.modal-close')
+  for (var i = 0; i < closemodal.length; i++) {
+    closemodal[i].addEventListener('click', toggleModal)
+  }
+  
+  document.onkeydown = function(evt) {
+    evt = evt || window.event
+    var isEscape = false
+    if ("key" in evt) {
+    isEscape = (evt.key === "Escape" || evt.key === "Esc")
+    } else {
+    isEscape = (evt.keyCode === 27)
+    }
+    if (isEscape && document.body.classList.contains('modal-active')) {
+    toggleModal()
+    }
+  };
+  
+  
+  function toggleModal () {
+    const body = document.querySelector('body')
+    const modal = document.querySelector('.modal')
+    modal.classList.toggle('opacity-0')
+    modal.classList.toggle('pointer-events-none')
+    body.classList.toggle('modal-active')
+  }
+  
+   
+</script>

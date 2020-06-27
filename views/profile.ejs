@@ -1,0 +1,156 @@
+<% layout('layouts/boilerplate') -%>
+
+<section id="profile" class="">
+	<div class="flex justify-center bg-gray-300 p-8 w-full">
+			<div class="grid grid-cols-12 p-4">
+	 		   	<div class="xl:col-span-4 lg:col-span-4 col-span-12 mx-auto">
+					<img src="<%= currentUser.image.secure_url %>" alt="<%= currentUser.username %> profile image" class="profile-image rounded-full xl:mr-8 lg:mr-32 xl:w-48 xl:h-48 lg:w-48 lg:h-48 md:w-48 md:h-48 w-32 h-32 object-cover object-center mr-4 modal-open">
+			   	</div>
+	 		   	<div class="xl:col-span-8 lg:col-span-8 col-span-12 mx-auto">
+					<div class="xl:mt-8 lg:mt-8 mt-2 flex justify-start">
+						<div class="xl:mt-10 lg:mt-10 mt-0" id="userinfo">
+							<h1 class="mr-4 xl:text-2xl lg:text-2xl md:text-2xl text-lg font-bold"><%= currentUser.username %></h1>
+							<p class="xl:text-xl lg:text-xl md:text-lx text-sm xl:mb-4 lg:mb-4 md:mb-4 mb-2"><%= currentUser.bio %></p>
+							<div class="flex items-center text-gray-700 xl:text-lg lg:text-lg md:text-lg text-xs">
+								<i class="fas fa-phone-square-alt"></i>
+				                <h1 class="px-2"><%= currentUser.nomorTelfon %></h1>
+		        			</div>
+								
+				            <div class="flex items-center text-gray-700 xl:text-lg lg:text-lg md:text-lg text-xs">
+								<i class="fas fa-envelope"></i>
+				                <h1 class="px-2"><%= currentUser.email %></h1>
+				            </div>
+					        <div class="flex w-full text-gray-700 xl:text-lg lg:text-lg md:text-lg text-xs">
+								<a href="<%= currentUser.facebook %>" target="_blank" rel="noopener" class="mr-1"><i class="fab fa-facebook-square"></i><span class="ml-1">Facebook</span></a>
+						        <a href="<%= currentUser.instagram %>" target="_blank" rel="noopener" ><i class="fab fa-instagram"></i><span class="ml-1">Instagram</span></a>
+					        </div>
+						</div>
+					</div>
+			   	</div>
+			</div>
+	</div>
+	
+	<div id="profileaction" class="xl:-mt-24 lg:-mt-24 md:-mt-24 -mt-20">
+		<div class="flex items-center justify-end p-10 w-full">
+      		<div class="xl:mr-2 xl:p-2 lg:mr-2 lg:p-2 mr-1 p-1 rounded-full bg-teal-200">
+        		<a href="/profile/edit" class="rounded-full xl:text-sm lg:text-sm md:text-sm text-xs"><i class="fas fa-edit mr-1"></i>Ubah Akun</a>
+     		</div>
+	        <div class="xl:mr-2 xl:p-2 lg:mr-2 lg:p-2 mr-1 p-1 rounded-full bg-teal-200">
+	        	<a href="/profile/delete" class="rounded-full xl:text-sm lg:text-sm md:text-sm text-xs"><i class="far fa-trash-alt mr-1"></i>Hapus Akun</a>
+	        </div>
+    	</div>
+	</div>
+
+	<div class="bg-gray-300 -mt-10">
+		<svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+		<path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+		<path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z" opacity="0.100000001"></path>
+		<path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" id="Path-4" opacity="0.200000003"></path>
+		</g>
+		<g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+		<path d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"></path>
+		</g>
+		</g>
+		</svg>
+	</div> 
+
+	<div class="text-center p-4">
+		<p class="border-gray-600 border-b-2 inline-block mt-4 mb-20 mr-auto xl:text-5xl lg:text-5xl text-xl border-gray-600 border-b-2 inline-block mb-2">Daftar Penjualan Saya</p>		
+	</div>
+	
+	<div class="flex flex-wrap justify-center p-2">
+		<div class="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 p-2">
+			<% products.forEach(function(product) { %>
+				<div class="max-w-sm rounded overflow-hidden shadow-lg m-3">
+				    <img class="w-full object-cover object-center xl:h-64 lg:h-64 h-32" src="<%= product.images[0].url %>" alt="Sunset in the mountains">
+				  	<div class="xl:px-6 xg:py-4 lg:px-6 lg:py-4 px-2 py-1">
+					    <div class="font-bold xl:text-xl xl:mb-2 lg:text-xl lg:mb-2 text-sm mb-1"><a href="/products/<%= product.id %>"><%= product.title %></a></div>
+					    <div class="flex items-center xl:mt-4 lg:mt-4 mt-1 text-gray-700 xl:text-sm lg:text-sm text-xs">
+				    		<i class="fas fa-map-marker-alt"></i>
+					        <h1 class="px-2"><%= product.location %></h1>
+					    </div>
+						<p class="ext-gray-700 xl:text-base xl:mt-2 lg:text-base lg:mt-2 text-sm mt-0">
+						      <%= product.description.slice(0,29) %>...
+					    </p>				    
+					  
+					    <p class="xl:text-xl lg:text-xl text-xs font-bold">Rp. <%= product.price %></p>
+					    <div id="rating" class="flex justify-between xl:text-sm lg:text-sm text-xs">
+					    	<p>Rating</p>
+					    	<p>  <%= product.reviews.length %> Reviews</p>				    	
+					    </div>
+					    <div class="stars xl:text-sm lg:text-sm text-xs">
+								<% for(let i = 0; i < 5; i++) { %>
+							    <% if(i < product.avgRating) { %>
+							      <!-- display a full star -->
+							      <i class="fas fa-star text-yellow-custom"></i> 
+							    <% } else if((product.avgRating - i) > 0 && (product.avgRating - i) < 1) { %> 
+							      <!-- display a half start -->
+							      <i class="fas fa-star-half-alt text-yellow-custom"></i> 
+							    <% } else { %>
+							      <!-- display a empty start -->
+							      <i class="far fa-star text-yellow-custom"></i>
+							    <% } %>
+							  <% } %>				    	
+					    </div>
+				    </div>
+				    <div class="footer-card-product-custom flex justify-between items-center">
+					  	<div class="xl:px-6 xl:py-4 lg:px-6 lg:py-4 px-2 py-1">
+					    	<a href="/products?categori=<%= product.categori %>" class="inline-block bg-gray-200 rounded-full xl:px-3 xl:py-1 xl:text-sm xl:mr-2 lg:px-3 lg:py-1 lg:text-sm lg:mr-2 px-2 py-0 text-xs mr-1 font-semibold text-gray-700"><%= product.categori %></a>
+					  	</div>
+				  		<div class="xl:px-6 xl:py-4 xl:text-sm lg:px-6 lg:py-4 lg:text-sm px-3 py-2 text-xs">
+				  			<%= product.stok %> Stoks
+				  		</div>
+				    </div>
+					<div class="inset-x-0 bottom-0">
+			  			<a href="/products/<%= product.id %>" class="text-center block bg-teal-300 hover:bg-teal-dark uppercase xl:text-sm lg:text-sm text-xs mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-2 my-3 p-2 rounded-full w-full">Detail</a>
+	 		        </div>   				
+				</div>			
+			<% }); %>
+		</div>
+	</div>
+	
+	<!--Modal untuk menampilkan gambar profile-->
+	  <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+	    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+	    
+	    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+	      
+	      <div class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-sm z-50">
+	        <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+	          <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+	        </svg>
+	        <span class="text-sm">(Esc)</span>
+	      </div>
+
+	      <!-- Add margin if you want to see some of the overlay behind the modal-->
+	      <div class="modal-content py-4 text-left px-6">
+	        <!--Title-->
+	        <div class="flex justify-between items-center pb-3">
+	          <div class="modal-close cursor-pointer z-50">
+	            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+	              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+	            </svg>
+	          </div>
+	        </div>
+
+	        <!--Body-->
+	        <img src="<%= currentUser.image.secure_url %>" alt="<%= currentUser.Unsername %>" class="object-cover object-center">        
+
+	        <!--Footer-->
+	        <div class="flex justify-end pt-2">
+	          <button class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+	        </div>
+	        
+	      </div>
+	    </div>
+	  </div>
+
+	<!-- Akhir modal untuk menampilkan gambar pfofile-->
+
+</section>
+
+ 
+
+<script src="/javascripts/profile.min.js"></script>

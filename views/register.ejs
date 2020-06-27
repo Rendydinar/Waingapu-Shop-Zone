@@ -1,0 +1,112 @@
+<% layout('layouts/boilerplate') -%>
+<section  class="xl:p-0 lg:p-0 md:p-0 p-4" id="register">
+	<p class="rounded-full mr-auto lg:text-4xl text-2xl text-center xl:mt-4 lg:mt-4 mt-0 text-center">Waingapu Shop Zone</p>
+	<div class="flex items-center w-full bg-teal-lighter">
+	  <div class="w-full bg-white rounded shadow-lg xl:p-8 lg:p-8 p-4 md:max-w-sm md:mx-auto">
+	  	<div class="text-left xl:mb-8 lg:mb-8 mb-4">
+		    <p class="xl:text-3xl lg:text-3xl text-xl w-full text-grey-darkest">Register</p>
+		    <p class="xl:text-xl lg:text-xl text-sm w-full text-grey-darkest">Daftar Akun Baru Anda Sekarang</p>
+	  	</div>
+ 	    <form class="relative xl:mb-4 lg:mb-4 mb-2 md:flex md:flex-wrap md:justify-between" action="/register" method="POST" enctype="multipart/form-data">			
+	
+			<img id="imageUpload" class="shadow-xl mx-auto xl:mb-4 lg:mb-4 mb-2 rounded-full border-b object-cover object-center xl:h-32 xl:w-2/5 lg:h-32 lg:w-2/5 h-32 w-32" src="/images/default-user-avatar.png" alt="your image" />
+			<div class="xl:ml-16 lg:ml-16  md:ml-16 ml-8 -mt-8 flex w-full items-center justify-center bg-grey-lighter xl:text-xl lg:text-xl md:text-xl text-lg">
+			    <label class="w-auto flex flex-col items-center p-2 bg-white text-blue rounded-lg shadow-sm tracking-wide border border-blue cursor-pointer hover:bg-teal-500 hover:text-white rounded-full">
+		        <i class="fas fa-camera"></i>
+		        <input class="hidden" type="file" name="image" id="image">
+			    </label>
+			</div>
+			<p id="validation-image-message" class="text-xs"></p>
+
+	        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+		        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="username">Username</label>
+		        <p class="text-xs text-red-600">*Gunakan nama yang harus berbeda dengan pengguna lain</p>
+				<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+					<div class="flex -mr-px">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-darkest text-sm"><i class="fas fa-user-alt"></i></span>
+					</div>	
+					<input type="text" class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue-300 focus:shadow text-sm" placeholder="Username" name="username" id="username" required>
+				</div>	
+ 	      	</div>
+
+	        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+	        	<label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="email">Email</label>
+				<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+					<div class="flex -mr-px">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-darkest text-sm"><i class="fas fa-envelope"></i></span>
+					</div>	
+					<input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" placeholder="Email" type="email" name="email" id="email" required>
+				</div>	
+ 	      	</div>
+
+	        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+		        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="password">Password</label>
+		        <p class="text-xs text-red-600">*Password harus lebih dari 7 karakter</p>
+				<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-darkest text-sm"><i class="fas fa-unlock"></i></span>
+				        <input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" type="password" name="password" id="password">
+						<button class="flex items-center leading-normal bg-grey-lighter rounded rounded-l-none border border-l-0 border-grey-light px-3 whitespace-no-wrap text-grey-dark text-sm" type="button" id="showPassword"><i class="fas fa-eye"></i></button>
+				</div>	
+ 	      	</div>
+			<p id="validation-message" class="text-xs"></p>
+	        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+		        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="rePassword">Confirm Password</label>
+				<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+					<div class="flex -mr-px">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-darkest text-sm"><i class="fas fa-lock"></i></span>
+					</div>	
+					<input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" placeholder="Password Confirm" type="password" name="rePassword" id="rePassword" required>
+				</div>	
+ 	      	</div>
+ 	        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+		        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="nomortelfon">Nomor Telfon</label>	
+		        <p class="text-xs text-teal-500">*Gunakan nomor telfon yang benar, untuk dihubungi pembeli</p>
+				<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+					<div class="flex -mr-px">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-dark"><i class="fas fa-phone-square-alt"></i></span>
+					</div>	
+					<input  pattern="\d{0,}" class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" placeholder="082217232432" type="text" name="nomorTelfon" id="nomortelfon" required>
+				</div>	
+ 	      	</div>
+			<p id="validation-nomortelfon" class="text-xs"></p>
+	     	
+	        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+		        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="nomortelfon">Link Sosial Media</label>
+		        <p class="text-xs text-teal-500">Boleh masukan akun sosial media agar pembeli dapat terhubung</p>
+				<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+					<div class="flex -mr-px">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-dark"><i class="fab fa-facebook-square"></i></span>
+					</div>	
+					<input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" placeholder="https://facebook.com/rendy" type="text" name="facebook" 
+					id="facebook">
+ 				</div>	
+				<div class="flex flex-wrap items-stretch w-full mt-1 relative text-grey-darkest">
+					<div class="flex -mr-px">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-dark"><i class="fab fa-instagram"></i></span>
+					</div>	
+					<input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" placeholder="https://instagram.com/r3ndy" type="text" name="instagram" id="instagram">
+
+				</div>
+ 	      	</div>
+	     
+
+			<div class="w-full bg-grey-lightest font-sans mb-8">
+			    <div class="border rounded flex flex-col shadow bg-white w-full">
+			        <div class="box__title bg-grey-lighter xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 border-b"><h3 class="text-sm text-grey-darker font-medium">Bio Data Singkat</h3>
+			        <p class="text-xs text-red-600">*Deskripsikan diri anda, minimal 20 karakter</p>
+			        </div>
+			        <textarea placeholder="hey" class="text-grey-darkest flex-1 p-2 m-1 bg-transparent text-sm" rows="10" name="bio" required></textarea>
+			    </div>
+			</div>
+
+	      <button id="submitBtn" class="block hover:bg-teal-700 bg-teal-300 hover:bg-teal-dark text-sm mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-4 my-3 p-2 rounded-full w-full" type="submit">Register</button>
+
+	    </form>
+	   	<span class="block w-full text-right no-underline text-sm text-grey-dark mb-2">Sudah punya akun ? <a href="/login" class="text-teal-500 hover:text-teal-700">Login</a></span> 
+
+	  </div>
+	</div>
+	
+</section>
+
+<script src="/javascripts/register.min.js"></script>

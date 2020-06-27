@@ -1,0 +1,159 @@
+<% layout('layouts/boilerplate') -%>
+<section  class="xl:p-0 lg:p-0 md:p-0 p-4" id="updateprofile">
+	<p class="rounded-full mr-auto xl:text-4xl lg:text-4xl text-2xl text-center xl:mt-4 lg:mt-4 mt-0">Waingapu Shop Zone</p>
+	<div class="flex items-center w-full bg-teal-lighter">
+	  <div class="w-full bg-white rounded shadow-lg xl:p-8 lg:p-8 p-4 md:max-w-sm md:mx-auto">
+	  	<div class="text-left xl:mb-8 lg:mb-8 mb-4">
+		    <p class="xl:text-3xl lg:text-3xl text-xl w-full text-grey-darkest">Update Akun</p>
+		    <p class="xl:text-xl lg:text-xl text-sm w-full text-grey-darkest">Ubah Akun Anda</p>
+	  	</div>
+ 	    <form class="xl:mb-4 lg:mb-4 mb-2 md:flex md:flex-wrap md:justify-between" action="/profile?_method=PUT" method="POST" enctype="multipart/form-data">
+
+			<img id="imageUpload" class="shadow-xl mx-auto xl:mb-4 lg:mb-4 mb-2 rounded-full border-b object-cover object-center xl:h-32 xl:w-2/5 lg:h-32 lg:w-2/5 h-32 w-32" src="<%= currentUser.image.secure_url %>" alt="your image" />
+			<div class="xl:ml-16 lg:ml-16  md:ml-16 ml-8 -mt-8 flex w-full items-center justify-center bg-grey-lighter xl:text-xl lg:text-xl md:text-xl text-lg">
+			    <label class="w-auto flex flex-col items-center p-2 bg-white text-blue rounded-lg shadow-sm tracking-wide border border-blue cursor-pointer hover:bg-teal-500 hover:text-white rounded-full">
+		        <i class="fas fa-camera"></i>
+		        <input class="hidden" type="file" name="image" id="image">
+			    </label>
+			</div>
+
+			<p id="validation-message" class="text-xs"></p>
+	        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+		        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="username">Username</label>
+						<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+							<div class="flex -mr-px">
+								<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-darkest text-sm"><i class="fas fa-user-alt"></i></span>
+							</div>	
+							<input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" type="text" id="username" name="username" placeholder="Username" value="<%= currentUser.username %>"  required>
+						</div>	
+	      	</div>
+
+        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+	        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="nomortelfon">Nomor Telfon</label>
+					<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+						<div class="flex -mr-px">
+							<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-dark"><i class="fas fa-phone-square-alt"></i></span>
+						</div>	
+				    <input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" type="text" id="nomortelfon" name="nomorTelfon" placeholder="Nomor Telfon..." value="<%= currentUser.nomorTelfon %>" required>
+					</div>	
+	      	</div>
+				<p id="validation-nomortelfon" class="text-xs"></p>
+
+
+        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+	        <label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="nomortelfon">Link Sosial Media</label>
+					<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+						<div class="flex -mr-px">
+							<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-dark"><i class="fab fa-facebook-square"></i></span>
+						</div>	
+					  	<input type="text" id="facebook" name="facebook" class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" placeholder="https://www.facebook.com/dinkes.timur" value="<%= currentUser.facebook %>">							
+	 				</div>	
+					<div class="flex flex-wrap items-stretch w-full mt-1 relative text-grey-darkest">
+						<div class="flex -mr-px">
+							<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-dark"><i class="fab fa-instagram"></i></span>
+						</div>	
+						<input type="text" id="instagram" name="instagram" class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" placeholder="https://www.instagram.com/r3ndydinar/" value="<%= currentUser.instagram %>">	
+					</div>
+      	</div>
+
+
+				<div class="w-full bg-grey-lightest font-sans mb-2">
+			    <div class="border rounded flex flex-col shadow bg-white w-full">
+		      	<div class="box__title bg-grey-lighter px-3 py-2 border-b"><h3 class="text-sm text-grey-darker font-medium">Bio Data Singkat</h3></div>
+		      	<textarea name="bio" class="text-grey-darkest flex-1 p-2 m-1 bg-transparent text-sm" rows="10" placeholder="bio"><%= currentUser.bio %></textarea required>
+			    </div>
+				</div>
+
+        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+					<label class="xl:mb-2 lg:mb-2 mb-1 text-sm text-grey-darkest" for="current-password">Password Saat Ini (digunakan untuk konfirmasi)</label>
+					<div class="flex flex-wrap items-stretch w-full relative text-grey-darkest">
+						<div class="flex -mr-px">
+							<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-darkest text-sm"><i class="fas fa-lock"></i></span>
+						</div>	
+						<input class="flex-shrink flex-grow flex-auto leading-normal xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 w-px flex-1 border border-grey-light rounded rounded-l-none px-3 relative focus:border-blue focus:shadow text-sm" type="password" id="current-password" name="currentPassword" placeholder="current password" required>
+					</div>	
+      	</div>
+
+				<div class="flex justify-start xl:mb-4 lg:mb-4 mb-2 md:w-full">
+      		<a href="/change-password" class="block bg-red-400 hover:bg-red-600 text-sm xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 rounded">Ubah Password</a>
+				</div>
+
+	      <button class="block bg-teal-300 hover:bg-teal-dark text-sm mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-4 my-3 p-2 rounded-full w-full" id="submitBtn" type="submit">Update Profile</button>
+	    </form>
+	  </div>
+	</div>
+	
+</section>
+
+
+<script>
+	const submitBtn = document.getElementById('submitBtn');
+	const validationMessage = document.getElementById('validation-message');
+	const validationMessageNomorTelfon = document.getElementById('validation-nomortelfon');
+	const nomorTelfon = document.getElementById("nomortelfon");
+	const outputImage = document.getElementById('imageUpload');
+
+	nomorTelfon.addEventListener('input', function(e) {
+		if(nomorTelfon.value.length < 10) {
+			validationMessageNomorTelfon.textContent = 'Nomor telfon tidak benar';
+			validationMessageNomorTelfon.classList.remove('text-green-500');	
+			validationMessageNomorTelfon.classList.add('text-red-500');	
+			submitBtn.setAttribute('disabled', true); // set disable untu button submit 
+
+		} else {
+			validationMessageNomorTelfon.textContent = 'Nomor telfon benar';
+			validationMessageNomorTelfon.classList.remove('text-red-500');	
+			validationMessageNomorTelfon.classList.add('text-green-500');	
+			submitBtn.removeAttribute('disabled'); // hapus atribut disabled pada button submit
+		}
+	});
+
+  document.querySelector('#image').addEventListener('change', function(e) {
+    outputImage.src = '/images/default-user-avatar.png';
+
+  	// hanya upload file dengan batas 1 mb
+	  if(event.target.files[0].size > 1010000) {
+			validationMessage.textContent = 'Gambar harus maksimal 1Mb';
+			validationMessage.classList.remove('text-green-500');	
+			validationMessage.classList.add('text-red-500');	
+			submitBtn.setAttribute('disabled', true); // set disable untu button submit 
+
+	  } else {
+			validationMessage.textContent = '';
+			validationMessage.classList.remove('text-red-500');	
+			validationMessage.classList.add('text-green-500');	
+			submitBtn.removeAttribute('disabled'); // hapus atribut disabled pada button submit
+
+		  var reader = new FileReader();
+		  reader.onload = function(){
+		    outputImage.src = reader.result;
+		  };
+
+	    reader.readAsDataURL(event.target.files[0]);
+	  } 
+	});
+
+   // Restricts input for the given textbox to the given inputFilter function.
+	function setInputFilter(textbox, inputFilter) {
+	  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+	    textbox.addEventListener(event, function() {
+	      if (inputFilter(this.value)) {
+	        this.oldValue = this.value;
+	        this.oldSelectionStart = this.selectionStart;
+	        this.oldSelectionEnd = this.selectionEnd;
+	      } else if (this.hasOwnProperty("oldValue")) {
+	        this.value = this.oldValue;
+	        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+	      } else {
+	        this.value = "";
+	      }
+	    });
+	  });
+	}
+
+	setInputFilter(nomorTelfon, function(value) {
+	  return /^[0-9]*$/.test(value); // Allow digits and '.' only, using a RegExp
+	});
+
+
+</script>

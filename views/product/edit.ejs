@@ -1,0 +1,176 @@
+<% layout('layouts/boilerplate') -%>
+ 
+<section  class="xl:p-0 lg:p-0 md:p-0 p-4 w-full p-4" id="editproduct">
+	<!-- <p class="rounded-full mr-auto text-4xl text-center mt-4">Waingapu Shop Zone</p> -->
+	<div class="flex items-center w-full bg-teal-lighter">
+	  	<div class="w-full xl:w-xl lg:w-xl bg-white rounded shadow-lg xl:p-8 lg:p-8 p-4 md:max-w-xl md:mx-auto">
+		  	<div class="text-left xl:mb-8 lg:mb-8 md:mb-8 mb-4">
+			    <p class="xl:text-3xl lg:text-3xl text-xl w-full text-grey-darkest">Ubah Penjualan</p>
+			    <p class="xl:text-xl lg:text-xl text-sm w-full text-grey-darkest">Ubah Barang Penjualan</p>
+		  	</div>
+	 	    <form class="mb-4 md:flex md:flex-wrap md:justify-between" id="postEditForm" action="/products/<%= product.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+		
+		      	<div class="flex flex-col xl:mb-4 lg:mb-4 mb-2  md:w-full">
+			        <label class="mb-2 text-sm text-grey-darkest" for="title">Nama Barang</label>
+					<input class="xl:text-sm lg:text-sm md:text-sm text-xs border xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 text-grey-darkest" type="text" name="product[title]" placeholder="Title" value="<%= product.title %>" required>
+			    </div>
+
+		        <label class="xl:mb-2 lg:mb-2 m-1 text-sm text-grey-darkest" for="price">@ Harga</label>
+				<div class="flex flex-wrap items-stretch w-full xl:mb-4 lg:mb-4 mb-2 relative">
+		 			<div class="flex -mr-px">
+						<span class="flex items-center leading-normal bg-grey-lighter rounded rounded-r-none border border-r-0 border-grey-light xl:px-3 lg:px-3 px-2 whitespace-no-wrap text-grey-dark xl:text-sm lg:text-sm md:text-sm text-xs">Rp.</span>
+					</div>				
+					<input type="text" name="product[price]" class="xl:text-sm lg:text-sm md:text-sm text-xs border xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 text-grey-darkest flex-shrink flex-grow flex-auto leading-normal w-px flex-1 border h-10 border-grey-light px-3 relative" placeholder="Price" value="<%= product.price %>" id="price" required>					
+				</div>			
+
+
+				<div class="flex flex-col xl:mb-4 lg:mb-4 mb-2  md:w-full">
+		        	<label class="mb-2 text-sm text-grey-darkest" for="categori">Categori</label>
+					<input type="text" name="product[categori]" step="1000" class="xl:text-sm lg:text-sm md:text-sm text-xs border xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 text-grey-darkest" placeholder=" product, max 1" id="categori" value="<%= product.categori %>" required>
+		      	</div>
+
+
+		        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2  md:w-full">
+		        	<label class="mb-2 text-sm text-grey-darkest" for="stok">Stok</label>
+					<input class="xl:text-sm lg:text-sm md:text-sm text-xs border xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 text-grey-darkest" type="text" name="product[stok]" value="<%= product.stok %>" placeholder="Stok" id="stok" required>
+		      	</div>
+
+				<div class="w-full bg-grey-lightest font-sans">
+			      	<div class="border rounded flex flex-col shadow bg-white w-full">
+			        	<div class="box__title bg-grey-lighter px-3 py-2 border-b"><h3 class="text-sm text-grey-darker font-medium">Deskripsi Barang</h3></div>		   
+			        	<textarea name="product[description]"  placeholder="Deskripsi Barang...." class="xl:text-sm lg:text-sm md:text-sm text-xs text-grey-darkest flex-1 p-2 m-1 bg-transparent" rows="10" required><%= product.description %></textarea>
+			      	</div>
+				</div>
+
+
+		      	<div class="flex flex-col xl:mb-4 lg:mb-4 mb-2  md:w-full">
+			        <label class="mb-2 mt-4 text-sm text-grey-darkest" for="rePassword">Lokasi Penjualan</label>
+			        <input type="text" name="product[location]" class="xl:text-sm lg:text-sm md:text-sm text-xs border xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 text-grey-darkest" placeholder="Lokasi" value="<%= product.location %>" id="location" required>
+			    </div>
+
+				<div class="w-full flex items-center justify-between">
+					<% product.images.forEach((image, i) => { %>
+						<div class="p-1">
+							<img src="<%= image.url %>" class="object-cover object-center w-32 h-32"/>
+							<div class="text-right mt-2">
+								<label for="image<%= i %>">Hapus ?</label>
+								<input type="checkbox" name="deleteImages[]" class="imageDeleteCheckbox" id="image<%= i %>" value="<%= image.public_id %>">
+							</div>
+						</div>
+					<% }); %>
+				</div>
+
+
+		        <div class="flex flex-col xl:mb-4 lg:mb-4 mb-2 md:w-full">
+	 	        	<input class="border xl:py-2 xl:px-3 lg:py-2 lg:px-3 py-1 px-2 text-grey-darkest" type="file" multiple="multiple" accept="image/*" name="images" id="imageproductupdload">
+				</div>
+
+				<div class="w-full flex items-center justify-between" id="imageproductupdloaded">
+	 				
+				</div>
+	   
+		      	<button class="block bg-teal-300 hover:bg-teal-dark text-sm mx-auto xl:my-6 xl:p-4 lg:my-6 lg:p-4 my-3 p-2 rounded-full w-full" type="submit">Ubah Barang</button>
+		    </form>
+	  	</div>
+	</div>
+</section>
+
+ <script src="/javascripts/product-edit.min.js">  </script>
+ <script>
+
+ 	let categoriInput = document.getElementById('categori');
+
+
+	// Restricts input for the given textbox to the given inputFilter function.
+	function setInputFilter(textbox, inputFilter) {
+	  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+	    textbox.addEventListener(event, function() {
+	      if (inputFilter(this.value)) {
+	        this.oldValue = this.value;
+	        this.oldSelectionStart = this.selectionStart;
+	        this.oldSelectionEnd = this.selectionEnd;
+	      } else if (this.hasOwnProperty("oldValue")) {
+	        this.value = this.oldValue;
+	        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+	      } else {
+	        this.value = "";
+	      }
+	    });
+	  });
+	}
+
+	setInputFilter(document.getElementById("price"), function(value) {
+	  return /^[0-9]*$/.test(value); // Allow digits and '.' only, using a RegExp
+	});
+
+	setInputFilter(document.getElementById("stok"), function(value) {
+	  return /^[0-9]*$/.test(value); // Allow digits and '.' only, using a RegExp
+	});
+
+	// setInputFilter(document.getElementById("location"), function(value) {
+	//   return /^([a-zA-Z]+)$/.test(value); // Allow digits and '.' only, using a RegExp
+	// });
+
+	categoriInput.addEventListener('keypress', function (event) {  
+	   var key = event.keyCode;
+	    if (key === 32) {
+	      event.preventDefault();
+	    }
+	});
+
+
+	$(function() {
+	    // Multiple images preview in browser
+	    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+	        if (input.files) {
+	            var filesAmount = input.files.length;
+
+	            // batas file size 1010000 = 1.01 mb
+	            let isFileSizeLarge = false;
+
+
+	            for( const file of input.files) {
+	            	if(file.size > 1010000) isFileSizeLarge = true;
+	            }
+
+	            if(filesAmount > 3 || isFileSizeLarge) {
+
+	            	document.querySelector('#imageproductupdloaded').innerHTML = `
+						<div class="alert-toast w-full">
+						    <input type="checkbox" class="hidden" id="footertoast">
+
+						    <label class="close cursor-pointer flex items-start justify-between w-full p-2 bg-red-500 h-24 rounded shadow-lg text-white" title="close" for="footertoast">
+						      Maaf, foto hanya bisa anda muat maksimal 3 buah (@ 1mb) foto. 
+						    
+						      <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+						        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+						      </svg>
+						    </label>
+					  	</div>	
+	            	`;
+
+	            	document.querySelector('#imageproductupdload').value = '';						  
+	            } else {
+		            for (i = 0; i < filesAmount; i++) {
+		                var reader = new FileReader();
+
+		                reader.onload = function(event) {
+		                    $($.parseHTML('<img>')).attr('src', event.target.result ).appendTo(placeToInsertImagePreview);
+		                }
+
+		                reader.readAsDataURL(input.files[i]);
+		            }
+	            }
+	        }
+
+	    };
+
+	    $('#imageproductupdload').on('change', function() {
+			// remove image sebelumnya
+			$("#imageproductupdloaded img").remove()
+	        imagesPreview(this, 'div#imageproductupdloaded');
+	    });
+
+	});
+ </script>
