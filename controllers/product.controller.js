@@ -1,6 +1,6 @@
 const Product = require('../models/product.model.js');
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const mapBoxToken = process.env.MAPBOX_TOKEN;
+const mapBoxToken = 'pk.eyJ1IjoicmVuZHlkaW5hciIsImEiOiJjazVhamN5Y2wwd2Z4M25wb3dxd3JieWYyIn0.SDMfrK-4DUwEyRyZ3_dLmQ'; //process.env.MAPBOX_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require('../cloudinary/index.cloudinary.js');
 const { ProductSchema } = require('../utils/Schema.util.js')

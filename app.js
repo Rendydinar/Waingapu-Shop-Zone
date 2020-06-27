@@ -49,8 +49,8 @@ app.use(cors())
 // 
 // CLEAN CODE, PETA LOCAL ERROR
 
-// connect to the database
-mongoose.connect('mongodb://localhost:27017/waingapu-shop-zone', { 
+// connect to the database 
+mongoose.connect('mongodb+srv://rendy:R3ndycoder433@cluster0-x0xe9.mongodb.net/waingapu-shop-zone', { 
   useNewUrlParser: true, 
   useUnifiedTopology: true,
   useCreateIndex: true,
