@@ -7,7 +7,7 @@ const { ProductSchema } = require('../utils/Schema.util.js')
 
 module.exports = {
 	productNew(req, res, next) {
-		res.render('product/new', {titlePage: 'Product New', title: '', price: '', stok:'', categori:'', description:'', location:''})
+		return res.render('product/new', {titlePage: 'Product New', title: '', price: '', stok:'', categori:'', description:'', location:''})
 	},
 
 
@@ -35,7 +35,7 @@ module.exports = {
 		// check apakah dilakuakan pencarian barang
 		if(Object.keys(res.locals.query).length !== 0 && res.locals.query.constructor === Object && products.docs.length !== 0) res.locals.success = `Ditemukan ${products.docs.length} barang dari hasil pencarian`;
 		
-		res.render('product/index', { products, titlePage: 'Product Index', mapBoxToken } ); 
+		return res.render('product/index', { products, titlePage: 'Product Index', mapBoxToken } ); 
 	},
 
 	// Product Create
@@ -96,7 +96,7 @@ module.exports = {
 			req.session.success = 'Product berhasil dibuat !';	
 
 			// redirect dengan memberikan parameter berupa id product yang baru dibuatkan.
-			res.redirect(`/products/${product.id}`);
+			return res.redirect(`/products/${product.id}`);
 		} else {
 		    // data request tidak valid
 		    console.log(result.error.details[0])
@@ -108,7 +108,7 @@ module.exports = {
 		     * Maka kita hapus foto profile yang dimuat sebelumnya di cloudinary karena kita menggunakan middleware multer yang otomatis langsung upload gambar di cloudinary ketika user memasukan gambar.
 		     */
 		    let error = 'Data Tidak Valid';
-		    res.status(422).render( 'product/new', { error, title: req.body.product.title, price: req.body.product.price, stok:req.body.product.stok, categori:req.body.product.categori, description:req.body.product.description, location:req.body.product.location} );
+		    return res.status(422).render( 'product/new', { error, title: req.body.product.title, price: req.body.product.price, stok:req.body.product.stok, categori:req.body.product.categori, description:req.body.product.description, location:req.body.product.location} );
 		}
 		
 	},
@@ -146,13 +146,13 @@ module.exports = {
 		// const floorRating = product.avgRating; // ini sigunakan saat mode develop biar dapat bisa hardcode nilai rating rata2
 
 		// render ke route product/show dengan memberikan data berupa product yang berhasil dicari untuk dilihat user. 
-		res.render('product/show', { product, floorRating, mapBoxToken, titlePage: product.title });
+		return res.render('product/show', { product, floorRating, mapBoxToken, titlePage: product.title });
 	},
 
 	// Post Edit
 	async productEdit(req, res, next) {
 		// render halaman edit product agar user bisa mengiedit product. 
-		res.render('product/edit');
+		return res.render('product/edit');
 	}, 
 
 	// product Update 
@@ -239,7 +239,7 @@ module.exports = {
 			
 			req.session.success = 'Barang berhasil di update'
 			// redirect ke route show page dengan parametar id product yang baru saja diupdate
-			res.redirect(`/products/${product.id}`);
+			return res.redirect(`/products/${product.id}`);
 		} else {
 		    // data request tidak valid
 		    console.log(result.error.details[0])
@@ -251,7 +251,7 @@ module.exports = {
 		     * Maka kita hapus foto profile yang dimuat sebelumnya di cloudinary karena kita menggunakan middleware multer yang otomatis langsung upload gambar di cloudinary ketika user memasukan gambar.
 		     */
 		    let error = 'Data Tidak Valid';
-		    res.status(422).render( 'product/edit', { error, product: {title: req.body.product.title, price: req.body.product.price, stok:req.body.product.stok, categori:req.body.product.categori, description:req.body.product.description, location:req.body.product.location, images: product.images} });
+		    return res.status(422).render( 'product/edit', { error, product: {title: req.body.product.title, price: req.body.product.price, stok:req.body.product.stok, categori:req.body.product.categori, description:req.body.product.description, location:req.body.product.location, images: product.images} });
 		}
 
 	},
@@ -263,8 +263,8 @@ module.exports = {
  		
  		// perulangan untuk menghapus seluruh gambar product di cloudinary 
  		product.images.forEach(async (img) => {
-				// hapus gambar dari cloudinary berdasarkan public id, menggunakan API cloudinary
- 				await cloudinary.v2.uploader.destroy(img.public_id);
+			// hapus gambar dari cloudinary berdasarkan public id, menggunakan API cloudinary
+			await cloudinary.v2.uploader.destroy(img.public_id);
  		});
 
  		await product.deleteOne(); // hapus product didalam database

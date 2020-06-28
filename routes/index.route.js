@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router(); 
 const multer = require('multer');
 const { storage } = require('../cloudinary/index.cloudinary.js');
-const upload = multer({ storage });
+const upload = multer({ 
+	storage,
+	limits: { 
+		fileSize: 1010000 // 1.01mb
+	} 
+});
 const { 
 	landingPage, 
 	getRegister,
@@ -32,11 +37,11 @@ const {
 	changePassword
 } = require('../middleware/index.middleware.js');
 
-const { 
-	validatePostRegister,
-	validatePostLogin,
-	validatePutUserProfile,
-} = require('../middleware/JoiValidation.middleware.js');
+// const { 
+// 	validatePostRegister,
+// 	validatePostLogin,
+// 	validatePutUserProfile,
+// } = require('../middleware/JoiValidation.middleware.js');
 
 /**
  * @route      	GET  / 

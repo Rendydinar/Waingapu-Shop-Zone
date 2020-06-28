@@ -49,7 +49,7 @@ module.exports = {
 			await product.save();
 			// redirect to the product
 			req.session.success = 'Review produk berhasil ditambahkan'; // berikan flash message menandakan user berhasil menambahkan review pada produk.
-			res.redirect(`/products/${product.id}`);
+			return res.redirect(`/products/${product.id}`);
 		} else {
 			// data invalid
 			console.log(result.error.details[0])
@@ -79,7 +79,7 @@ module.exports = {
 		req.session.success = "Review berhasil diubah";
 
 		// redirect untuk melihat produk yang setelah diupdate postnya.
-		res.redirect(`/products/${req.params.id}`);
+		return res.redirect(`/products/${req.params.id}`);
 	},
 
 	// Reviews Destroy

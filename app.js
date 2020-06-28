@@ -33,7 +33,6 @@ const reviews = require('./routes/reviews.route.js');
 
 const app = express();
 
-
 app.use(cors())
 
 // Perbaiki sidebar dan header untuk mobile+tablet, setelah itu gasa semua page
@@ -50,8 +49,9 @@ app.use(cors())
 // CLEAN CODE, PETA LOCAL ERROR
 
 // connect to the database 
+// mongoose.connect('mongodb://localhost:27017/waingapu-shop-zone', { 
 mongoose.connect('mongodb+srv://rendy:R3ndycoder433@cluster0-x0xe9.mongodb.net/waingapu-shop-zone', { 
-  useNewUrlParser: true, 
+   useNewUrlParser: true, 
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false
@@ -142,47 +142,42 @@ app.use('/products/:id/reviews', reviews);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  // const err = new Error('404 Not Page Found');
-  // err.status = 404;
-  // next(err);
   res.status = 404;
   res.render('404');
 });
 
 // error handler when development mode
 app.use(function(err, req, res, next) {
-  // // set locals, only providing error in development
-  res.locals.message = err.message;
-  // res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  /**
-   * Kita setting untuk error saat mengupload file yang formatnya tidak dapat diterima
-   */
-  if(err.message.includes('file format')) {
-    err.status = 422;
-    err.message = 'Format File Tidak Didukung';
-  }
-
-  // render the error page
-  // res.status(err.status || 500);
-  err.status = err.status || 500;
+  // set locals, only providing error in development
   console.log('Terjadi error!'.red);
   console.log(err);
   console.log('Akhir dari informasi error!'.blue);
-  req.session.error = err.message;
 
-  // res.render('error');
-  res.redirect('back');
+  /**
+   * Kita lakukan pengujian apakah untuk error saat mengupload file yang formatnya tidak dapat diterima
+   * atau ukuran file upload gambar melebih kapasitas.
+   * Error kedua ini masih dalam status kode 422, selain itu kode 500
+   */
+  if(err.message.includes('file format')) {
+    err.message = 'Format File Tidak Didukung';
+    req.session.error = err.message;
+    return res.status(422).redirect('back');
+  } else if(err.message.includes('File too large')) {
+    err.message = 'Ukuran File Terlalu Besar';
+    req.session.error = err.message;
+    return res.status(422).redirect('back');
+  } else {
+    // render the error page
+    // error 500 production mode
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    return res.render('error');
+
+    // error 500 development mode
+    // return res.status(422).redirect('back');
+  }
+ 
 });
-
-// error handler production mode
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//   console.log(err.message);
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 module.exports = app;

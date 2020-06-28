@@ -51,12 +51,12 @@ module.exports = {
 
 	  	console.log(recentProducts);
 
-		res.render('index', { products, mapBoxToken, recentProducts, titlePage: 'Waingapu Shop Zone - Home' });
+		return res.render('index', { products, mapBoxToken, recentProducts, titlePage: 'Waingapu Shop Zone - Home' });
 	},
 
 	// GET /register
 	getRegister(req, res, next) {
-		res.render('register', { titlePage: 'Register', username: '', email: '', nomorTelfon: '', facebook: '', instagram: '', bio: '' } );
+		return res.render('register', { titlePage: 'Register', username: '', email: '', nomorTelfon: '', facebook: '', instagram: '', bio: '' } );
 	},
 
 	// POST /register
@@ -151,7 +151,7 @@ module.exports = {
 				console.log(resultSendMsg);
 
 				req.session.success = `Sebuah token verifikasi akun sudah dikirimkan ke ${req.body.email} dengan intruksi untuk melakukan verifikasi akun. Segera Lakukan Verifikasi Batas Verifikasi Mulai 1 Dari Sekarang`;
-				res.redirect('/verifikasi-email');
+				return res.redirect('/verifikasi-email');
 		  } else {
 		    // data request tidak valid
 		    const { details } = result.error;
@@ -163,7 +163,7 @@ module.exports = {
 		     */
 		    deleteProfileImage(req);
 		    let error = 'Data Tidak Valid';
-		    res.status(422).render('register', { titlePage: 'Register', username: req.body.username, email: req.body.email, error, nomorTelfon: req.body.nomortelfon, facebook: req.body.facebook, instagram: req.body.instagram, bio: req.body.bio});  
+		    return res.status(422).render('register', { titlePage: 'Register', username: req.body.username, email: req.body.email, error, nomorTelfon: req.body.nomortelfon, facebook: req.body.facebook, instagram: req.body.instagram, bio: req.body.bio});  
 		  }
 		} catch(err) {
 			/**
@@ -187,7 +187,7 @@ module.exports = {
 				const { username, email, nomorTelfon, facebook, instagram, bio } = req.body;
 				let error = err; // ambil pesan error
 				res.locals.error = 'Data valid';
-		   	 	res.status(422).render('register', { titlePage: 'Register', username, email, error, nomorTelfon, facebook, instagram, bio });  
+		   	 	return res.status(422).render('register', { titlePage: 'Register', username, email, error, nomorTelfon, facebook, instagram, bio });  
 			}
 		}
 	},
@@ -199,7 +199,7 @@ module.exports = {
 
 		// jika saat mau login user sudah menentukan tujuan url yang diinginkan tetapi membutuhkan akses login.
 		if(req.query.redirectTo) req.session.redirectTo = req.headers.referer; // ambil url yang user ingin tujukan sebelum ini.
-		res.render('login', { titlePage: 'Login' } );
+		return res.render('login', { titlePage: 'Login' } );
 	},
 
 	// Product /login
@@ -218,9 +218,9 @@ module.exports = {
 			 */
 			if(!user && error) { 
 				if(error.name.includes('IncorrectPasswordError')) {
-						error.message = "Nama User atau Password Salah";
-						error.status = 422;
-						return next(error); // jika user belum melakukan registrasi (tidak ada didatabase) dan terjadi error
+						req.session.error = 'Nama User atau Password Salah';
+						return res.status(422).redirect('/login');
+						// return next(error); // jika user belum melakukan registrasi (tidak ada didatabase) dan terjadi error
 				}
 			}
 
@@ -232,10 +232,11 @@ module.exports = {
 				// set login user
 				if(err) {
 					if(err.message.includes('user.get is not a function')){
-						err.message = "Nama User atau Password Salah";
-						err.status = 422;
-
-						return next(err); // jika terjadi error saat mencoba login user
+						// err.message = "Nama User atau Password Salah";
+						// err.status = 422;
+						req.session.error = 'Nama User atau Password Salah';
+						return res.status(422).redirect('/login');
+						// return next(err); // jika terjadi error saat mencoba login user
 					}
 
 				} 
@@ -243,7 +244,9 @@ module.exports = {
 				// lihat apakah user ingin mengingatkan password atau tidak
 				if (req.body.remember === "yes") {
 	      			req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
+	      			console.log('remember me');
 		        } else {
+	      			console.log('dont remember me');
 		          req.session.cookie.expires = false; // Cookie expires at end of session
 		        }				
 
@@ -257,7 +260,7 @@ module.exports = {
 				 */
 				const redirectUrl = req.session.redirectTo || '/';
 				delete req.session.redirectTo; // hapus properti req.session.redirectTo (url dimana sebelumnya user ingin tuju)
-				res.redirect(redirectUrl); // redirect user yang telah berhasil login.
+				return res.redirect(redirectUrl); // redirect user yang telah berhasil login.
 			});
 	 	} else {
 		    // data request tidak valid
@@ -270,7 +273,7 @@ module.exports = {
 		     * Maka kita hapus foto profile yang dimuat sebelumnya di cloudinary karena kita menggunakan middleware multer yang otomatis langsung upload gambar di cloudinary ketika user memasukan gambar.
 		     */
 		    let error = 'Nama User atau Password Salah';
-		    res.status(422).render('login', { titlePage: 'Login', username: req.body.username, password: '', error});  
+		    return res.status(422).render('login', { titlePage: 'Login', username: req.body.username, password: '', error});  
 	  	}
 	},
 	
@@ -283,7 +286,7 @@ module.exports = {
 		 */
 		await req.logout();
 		req.session.success = 'Berhasil Logout';
-  		res.redirect('/');
+  		return res.redirect('/');
 	},
 
 	// GET /profile
@@ -307,19 +310,18 @@ module.exports = {
 	 * Fungsi untuk melakukan update profile user
 	 */
 	async updateProfile(req, res, next) {
-	  const result = PutUserProfileSchema.validate(req.body);
-	  const products = await Product.find().where('author').equals(req.user._id).limit(10).exec(); // ambil 10 post/Product terkahir yang user buat/Tambahkan.
+		try {
+		  	const result = PutUserProfileSchema.validate(req.body);
+		  	const products = await Product.find().where('author').equals(req.user._id).limit(10).exec(); // ambil 10 post/Product terkahir yang user buat/Tambahkan.
 
-	  if(!result.error) {
-	    // data request valid
-			/**
-			 * Kita melakukan try and catch.
-			 * Berguna agar kita dapat mengetahui penyebab error saat mencoba mengubuah data akun.
-			 * Kemudian kita dapat melakukan customisasi error tanpa dihandle oleh middleware asyncErrorHandler.
-			 * Ini bertujuan untuk melakukan validasi email register akun user.
-			 */
-			try{
-				// destruct data req.body	
+		  	if(!result.error) {
+				/**
+				 * Data request valid
+				 * Kita melakukan try and catch.
+				 * Berguna agar kita dapat mengetahui penyebab error saat mencoba mengubuah data akun.
+				 * Kemudian kita dapat melakukan customisasi error tanpa dihandle oleh middleware asyncErrorHandler.
+				 * Ini bertujuan untuk melakukan validasi email register akun user.
+				 */
 				const { 
 					username,
 					email,
@@ -335,14 +337,15 @@ module.exports = {
 					// user ingin mengubah username
 
 					// cek apakah username register akun user sudah digunakan oleh akun user lain atau belum.
-					const isUsernameExist = await checkUsernameExist(username);
+					const isUsernameExist = await checkUsernameExist(String(username));
 
 					/**
 					 * jika username register akun user sudah digukan akun lain.
 					 * hentikan register akun
 					 */
-					if(isUsernameExist) throw new Error ('Username ini sudah didaftarkan oleh pengguna lain, silakan menggantikan Username');
-
+					if(isUsernameExist) {
+					    return res.status(422).render( 'profile', { products, error: 'Username ini sudah didaftarkan oleh pengguna lain, silakan menggantikan Username'} );
+					}
 					// username baru valid, set username baru user
 					user.username = String(username); 
 				} 
@@ -362,9 +365,14 @@ module.exports = {
 
 				// cek apakah update fto profile atau tidak
 				if(req.file) {
-					// jika update foto profile
-					if(user.image.public_id) await cloudinary.v2.uploader.destroy(user.image.public_id); // hapus gambar saat ini dulu di cloudinary
-					const { secure_url, public_id } = req.file; // ambil secure_url, public_id gambar yang baru yang otomatis di upload multer ketika diberikan gambar 
+					/**
+					 * Jika update foto profile
+					 * hapus gambar saat ini dulu di cloudinary
+					 * ambil secure_url, public_id gambar yang baru yang otomatis di upload multer ketika diberikan gambar
+					 * simpan kedalam database user 
+					 */
+					if(user.image.public_id) await cloudinary.v2.uploader.destroy(user.image.public_id); 
+					const { secure_url, public_id } = req.file; //   
 					user.image = { secure_url, public_id }; // upload kedalam database utntuk user 
 				}
 
@@ -392,30 +400,24 @@ module.exports = {
 				// await login(user); // login ke akun user yang sama tetapi dengan password yang baru diupdate
 
 				req.session.success = 'Profile Berhasil Diupdate';
-				res.redirect('/profile');
-			} catch(err) {
-				/**
-				 * Jika terjadi error saat validasi email user
-				 */
-				// if((err.message = 'Email tidak benar, silakan menggantikan email') || (err.message = 'Email Sudah digunakan pengguna lain, silakan menggantikan email'))
-				err.status = 422;
-
-				next(err);
-			}
-	  } else {
-	    // data request tidak valid
-	    console.log(result.error.details[0])
-	    const { details } = result.error;
-	    const message = details.map(i => i.message).join(',');
-	    console.log('error, ', message);
-	    /**
-	     * Jika terjadi error saat validasi username dan email user
-	     * Maka kita hapus foto profile yang dimuat sebelumnya di cloudinary karena kita menggunakan middleware multer yang otomatis langsung upload gambar di cloudinary ketika user memasukan gambar.
-	     */
-	    let error = 'Data Tidak Valid';
-	    res.status(422).render( 'profile', { products, error} );
-	  }
-
+				return res.redirect('/profile');
+			
+			} else {
+			    // data request tidak valid
+			    console.log(result.error.details[0])
+			    const { details } = result.error;
+			    const message = details.map(i => i.message).join(',');
+			    console.log('error, ', message);
+			    /**
+			     * Jika terjadi error saat validasi username dan email user
+			     * Maka kita hapus foto profile yang dimuat sebelumnya di cloudinary karena kita menggunakan middleware multer yang otomatis langsung upload gambar di cloudinary ketika user memasukan gambar.
+			     */
+			    let error = 'Data Tidak Valid';
+			    return res.status(422).render( 'profile', { products, error} );
+		  	}
+		} catch(err) {
+			next(err);
+		}
 	}, 
 
 	/**
@@ -423,7 +425,7 @@ module.exports = {
 	 * Halaman ini akan meminta user memasukan email untuk verivikasi reset password
 	 */
 	getForgotPw(req, res, next) {
-		res.render('users/forgot');
+		return res.render('users/forgot');
 		// res.render('users/reset', {token: '2e345'});
 	},
 
@@ -468,7 +470,7 @@ module.exports = {
 		console.log(resultSendMsg);
 
 		req.session.success = `Sebuah email sudah dikirimkan ke ${email} dengan intruksi untuk reset password`;
-		res.redirect('/forgot-password');
+		return res.redirect('/forgot-password');
 	},
 
 	// Check Token Reset Password
@@ -504,7 +506,7 @@ module.exports = {
 		//  * Token reset password valid
 		//  * Arahkan user ke halaman selanjut untuk mereset password dengan memberikan data juga berupa token reset password
 		//  */
-		res.render('users/reset', { token });
+		return res.render('users/reset', { token });
 	},	
 
 	/**
@@ -575,7 +577,7 @@ module.exports = {
 
 			req.session.success = 'Password berhasil diubah';
 			// Redirect user kehalaman utama, user telah berhasil reset password
-			res.redirect('/');
+			return res.redirect('/');
 
 		} else {
 			req.session.error = 'Passwords tidak sama.';
@@ -587,9 +589,8 @@ module.exports = {
 	 * Render Verifikasi email saat melakukan pendaftaran
 	 * Halaman ini akan meminta user memasukan token yang dikirimkan ke email untuk verivikasi register akun
 	 */
-	
 	async getVerifikasiEmailRegister(req, res, next) {
-		res.render('verifikasiEmail.ejs');
+		return res.render('verifikasiEmail.ejs');
 	},
 	
 	async getTokenVerikasiEmailRegisterAndRegisterUserAccount(req, res, next) {
@@ -620,22 +621,22 @@ module.exports = {
 				// hapus akun user register 
 				await user.delete();
 
-					/**
-					 * jika sudah berhasi update password user dan sudah berhasil login ulang user.
-					 * setting pesan untuk dikirimkan ke email user sebagau tanda bahwa user sudah berhasil reset password.
-					 */
-					const msg = {
+				/**
+				 * jika sudah berhasi update password user dan sudah berhasil login ulang user.
+				 * setting pesan untuk dikirimkan ke email user sebagau tanda bahwa user sudah berhasil reset password.
+				 */
+				const msg = {
 				    to: user.email,
 				    from: 'Waingapu Shop Zone Admin <umburambu45@gmail.com>',
 				    subject: 'Waingapu Shop Zone - Berhasil Mendaftarkan Akun',
 				    text: `Email ini untuk mengonfirmasi bahwa anda baru saja mendaftarkan akun di Waingapu Shop Zone.
 					Jika Anda tidak melakukan ini, silakan tekan balas dan beri tahu kami segera.`.replace(/		/g, '') // setting format string
-				  };
+			    };
 
-					const resultSendMsg = await mailService.send(msg); // kirimkan ke email user untuk mendapatkan token verifikasi reset password 
+				const resultSendMsg = await mailService.send(msg); // kirimkan ke email user untuk mendapatkan token verifikasi reset password 
 
-					console.log(`Hasil pengiriman email ke email ${user.email} untuk melakukan reset password saya lupa password`);
-					console.log(resultSendMsg);
+				console.log(`Hasil pengiriman email ke email ${user.email} untuk melakukan reset password saya lupa password`);
+				console.log(resultSendMsg);
 
 				// // ketika user baru mendaftar, kita langsung membuat user login secara otomatis
 				// req.login(newUser, function(err) {
@@ -649,7 +650,9 @@ module.exports = {
 
 				const login = util.promisify(req.login.bind(req)); // fungsi untuk login ulang
 				await login(user); // login ulang user setelah reset password
-
+				req.session.success = 'Akun berhasil dibuat';
+				// Redirect user kehalaman utama, user telah berhasil reset password
+				return res.redirect('/');        		
 			} else {
 				error = 'Token telah kadelwarsa, silakan buatkan akun ulang';
 				return res.render('register', { titlePage: 'Register', username: '', email:'', error });
@@ -683,16 +686,16 @@ module.exports = {
 					res.locals.error = 'Tidak ada hasil dari query tersebut.';
 				}
 
-				res.render('users/userProfile', { products, titlePage: `${user.username} Profile`, mapBoxToken, user } ); 
+				return res.render('users/userProfile', { products, titlePage: `${user.username} Profile`, mapBoxToken, user } ); 
 
 			} else {
 				req.session.error = "User Tidak Ditemukan"
-				res.status(404).redirect('back');
+				return res.status(404).redirect('back');
 			}
 		} catch(err) {
 			if(err.message.includes('Cast to ObjectId failed for value')) {
 				req.session.error = "User Tidak Ditemukan"
-				res.status(404).redirect('/products');				
+				return res.status(404).redirect('/products');				
 			}
 		}
 
@@ -791,7 +794,7 @@ module.exports = {
 			await user.delete(); 
 
 			req.session.success = 'Akun Berhasil Di Hapus';
-			res.redirect = '/'
+			return res.redirect('/');
  
 		} else {
 			// data tidak valid

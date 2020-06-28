@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const moment = require('moment-timezone');
+
 
 const ReviewSchema = new Schema({
 	body: {
@@ -14,7 +16,7 @@ const ReviewSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	},
-	createAt: {type: Date, default: Date.now}
+	createAt: {type: Date, default: moment().tz('Asia/Makassar').format('L')}
 });
 
 module.exports = mongoose.model('Review', ReviewSchema);

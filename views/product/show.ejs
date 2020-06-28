@@ -42,7 +42,7 @@
           <% product.images.forEach(function(image) { %>
           <!-- Use figure for a more semantic html -->
             <figure itemprop="associatedMedia" class="xl:h-30 xl:w-40 xl:p-2 lg:h-30 lg:w-40 lg:p-2 h-15 w-20 p-1 figure-photoswipe" itemscope>
-              <a href="<%= image.url %>" class="object-cover object-center" data-size="800x600" itemprop="contentUrl">
+              <a href="<%= image.url %>" class="object-cover object-center" data-size="1024x768" itemprop="contentUrl">
                 <img src="<%= image.url %>" caption="product" class="img-photoswipe w-full h-full object-cover object-center" itemprop="thumbnail" alt="Image description">
               </a>
             </figure>
@@ -258,7 +258,7 @@
                     <i class="far fa-star text-yellow-custom"></i>
                   <% } %>
                 <% } %>                             
-              <span class="xl:text-sm lg:text-sm text-xs"><%= new Date(review.author._id.getTimestamp()).getDay() %>/<%= new Date(review.author._id.getTimestamp()).getMonth() %>/<%= new Date(review.author._id.getTimestamp()).getFullYear() %></span>  
+              <span class="xl:text-sm lg:text-sm text-xs"><%= new Date(review.createAt).getDate() %>/<%= new Date(review.createAt).getMonth() + 1 %>/<%= new Date(review.createAt).getFullYear() %></span>  
             </div>         
             <p class="xl:text-sm lg:text-sm text-xs"><%= review.body %></p>    
           </div>

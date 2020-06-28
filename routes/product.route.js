@@ -2,7 +2,13 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const { storage } = require('../cloudinary/index.cloudinary.js');
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  limits: { 
+    fileSize: 1010000 // 1.01mb 
+  } 
+});
+
 const { 
 	asyncErrorHandler, 
 	isLoggedIn, 
@@ -20,10 +26,10 @@ const {
   productDestroy
 } = require('../controllers/product.controller.js');
 
-const { 
-  validatePostProduct,
-  validatePutProduct,
-} = require('../middleware/JoiValidation.middleware.js');
+// const { 
+//   validatePostProduct,
+//   validatePutProduct,
+// } = require('../middleware/JoiValidation.middleware.js');
 
 
 // eval(require('locus'));
